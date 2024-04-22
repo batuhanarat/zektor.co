@@ -8,8 +8,8 @@ const SensorSchema = new Schema({
     humidity: { type: Number },
     lightIntensity: { type: Number },
     co2Level:{ type: Number },
-    userId: { type: ObjectId, ref: 'User' },
-});
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },}
+);
 
 const SensorModel =  mongoose.model(
     "Sensor", SensorSchema

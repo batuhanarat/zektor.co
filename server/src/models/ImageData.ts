@@ -5,8 +5,7 @@ const ObjectId = mongoose.Schema.ObjectId;
 
 const ImageDataSchema = new Schema({
     imageId: {type: ObjectId},
-    order: {type:Number},
-    plantId: { type: ObjectId, ref: 'Plant' },
+    plantId: { type: Schema.Types.ObjectId, ref: 'Plant' },
     image: { type: String},
     date: { type: Date, default: Date.now }
 });

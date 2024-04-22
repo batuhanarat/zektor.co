@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.ObjectId;
 
 const UserSchema = new Schema({
-   user_id: String,
+   user_id:  {type: ObjectId},
    device_id: String,
    plants: [{ type: ObjectId, ref: 'Plant' }]
 });
