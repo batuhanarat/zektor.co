@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 
 import './App.css'
@@ -72,9 +73,8 @@ function App() {
       <ul className='plants'>
       {plants.map((plant) => (
         <li key={plant._id}>
-          {plant.type}
+          <Link to={`plants/${plant._id}`}>{plant.type}</Link>
         </li>
-
       ))} </ul>
       </div>
 

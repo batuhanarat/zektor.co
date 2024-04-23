@@ -11,10 +11,10 @@ export type TPlant = {
 
 export async function getPlants(userID:string): Promise<TPlant[]> {
     try{
-        const response = await fetch(`${API_URL}/plant/${userID}`);
+        const response = await fetch(`${API_URL}/user/${userID}/plants`);
 
         if (!response.ok) {
-            throw new Error('Failed to fetch plants');
+            throw new Error('Failed to fetch plant');
         }
         return response.json();
     }

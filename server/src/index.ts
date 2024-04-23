@@ -10,6 +10,8 @@ import { createImageDataController } from "./controllers/createImageDataControll
 import { getUserController } from "./controllers/getUserController";
 import { getUsersController } from "./controllers/getUsersController";
 import { getPlantsController } from "./controllers/getPlantsController";
+import { getPlantController } from "./controllers/getPlantController";
+import { getImagesDataController } from "./controllers/getImagesDataController";
 
 
 
@@ -29,9 +31,11 @@ app.get("/user/:userId", getUserController);
 app.get("/users", getUsersController);
 
 app.post("/plant", createPlantController);
-app.get("/plant/:userId", getPlantsController);
+app.get("/user/:userId/plants", getPlantsController);
+app.get("/plant/:plantId", getPlantController);
 
 app.post("/plantImage",createImageDataController);
+app.get("/plant/:plantId/images", getImagesDataController);
 
 app.get("/hello",(req:Request, res: Response) => {
     res.send("HELLO WORLD");
