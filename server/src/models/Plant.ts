@@ -8,6 +8,7 @@ const PlantSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref: 'User' },
     type: { type: String },
     order: {type: Number},
+    developmentPhase: { type: Number, required: false },
     images: [{ type: ObjectId, ref: 'ImageData' }]
 });
 

@@ -1,35 +1,86 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
+
 import './App.css'
+import { getUser,TUser } from './api/getUser';
+import { createUser } from './api/createUser';
+import { getPlants, TPlant } from './api/getPlants';
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [userId, setUserId] = useState('');
+  const [loginMessage, setLoginMessage] = useState('');
+  const [plants, setPlants] = useState<TPlant[]>([]);
+  const [sensorValues, setSensorValues] = useState([]);
+
+
+
+  async function handleGetUser(userID:string) {
+    try {
+      const user: TUser = await getUser(userID);
+      setUserId(userID);
+      setLoginMessage(`User ID : ${userID} - logged in`);
+      const userPlants = await getPlants(userID);
+      setPlants(userPlants);
+
+    } catch (error) {
+      console.error("Failed to fetch user:", error);
+      setLoginMessage('User cannot log in');
+      setPlants([]);
+    }
+}
+
+  async function handleCreateUser() {
+    try {
+      const userID = await createUser();
+      setLoginMessage(`User ID : ${userID} - is created and logged in`);
+    }
+    catch (error) {
+      console.error("Failed to create user:", error);
+      setLoginMessage('User cannot be created');
+      setPlants([]);
+    }
+  }
+
+
+
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+
+    <div className='App'>
+
+      <div className="section top-section">
+        <div className = 'user'>
+          <label>User ID:</label>
+          <input type="text" value={userId}
+          onChange={(e:React.ChangeEvent<HTMLInputElement>) => {
+            setUserId(e.target.value);
+          }} />
+          <button onClick={() => handleGetUser(userId)}>Get User</button>
+        </div>
+        <button onClick={handleCreateUser}>Create User</button>
+          <div className='loginMessage'>
+        {loginMessage}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+
+
+
+      <div className='section middle-section'>
+      <ul className='plants'>
+      {plants.map((plant) => (
+        <li key={plant._id}>
+          {plant.type}
+        </li>
+
+      ))} </ul>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+
+    </div>
+  );
 }
 
 export default App

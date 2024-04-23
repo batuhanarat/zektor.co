@@ -34,7 +34,10 @@ export async function createPlantController(req:Request, res: Response) {
         const createdSensor = await newSensor.save();
         res.json(createdSensor);
     } catch (error) {
-        res.status(500).json({ message: "Failed to create sensor data", error: error.toString() });
-    }
+        if (error instanceof Error && error.message) {
+            res.status(500).json({ message: "Failed to create plant", error: error.message });
+        } else {
+            res.status(500).json({ message: "Failed to create plant", error: "Unknown error occurred" });
+        }    }
 }
 

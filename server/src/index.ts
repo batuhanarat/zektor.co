@@ -7,6 +7,12 @@ import cors from "cors";
 import { createUserController } from "./controllers/createUserController";
 import { createPlantController } from "./controllers/createPlantController";
 import { createImageDataController } from "./controllers/createImageDataController";
+import { getUserController } from "./controllers/getUserController";
+import { getUsersController } from "./controllers/getUsersController";
+import { getPlantsController } from "./controllers/getPlantsController";
+
+
+
 
 
 const PORT = 5002;
@@ -19,7 +25,12 @@ app.use(cors({
 app.use(express.json());
 
 app.post("/user", createUserController);
+app.get("/user/:userId", getUserController);
+app.get("/users", getUsersController);
+
 app.post("/plant", createPlantController);
+app.get("/plant/:userId", getPlantsController);
+
 app.post("/plantImage",createImageDataController);
 
 app.get("/hello",(req:Request, res: Response) => {
