@@ -2,12 +2,10 @@ import {Request,Response} from "express";
 import Sensor from "../models/Sensor";
 
 export async function getSensorDataController(req:Request, res: Response) {
-    const _userId = req.params.userId;
-    console.log("Requested userId:", _userId);
-
+    const userId = req.params.userId;
 
     try {
-        const sensor = await Sensor.find({ userId: _userId });
+        const sensor = await Sensor.find({ userId: userId });
 
         return res.json(sensor);
     }
