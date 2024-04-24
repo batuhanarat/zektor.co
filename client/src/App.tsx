@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
 import { Link } from 'react-router-dom';
 
 
@@ -6,6 +6,7 @@ import './App.css'
 import { getUser,TUser } from './api/getUser';
 import { createUser } from './api/createUser';
 import { getPlants, TPlant } from './api/getPlants';
+import { getSensor, TSensor } from './api/getSensor';
 
 
 
@@ -14,8 +15,8 @@ function App() {
   const [userId, setUserId] = useState('');
   const [loginMessage, setLoginMessage] = useState('');
   const [plants, setPlants] = useState<TPlant[]>([]);
-  const [sensorValues, setSensorValues] = useState([]);
-
+  const [temperature, setTemperature] = useState<number | undefined>(undefined);
+  const [humidity, setHumidity] = useState<number | undefined>(undefined);
 
 
   async function handleGetUser(userID:string) {
@@ -45,13 +46,31 @@ function App() {
     }
   }
 
+  async function handleGetSensorData(userID:string) {
+    try {
+      const sensor:TSensor = await getSensor(userID);
+      console.error("sensor temp:", sensor.temperature);
+      setTemperature(sensor.temperature);
+      setHumidity(sensor.humidity);
+    }
+    catch (error) {
+      console.error("Failed to create sensor:", error);
+      setTemperature(0);
+      setHumidity(0);
+    }
+  }
+
+  useEffect(() => {
+
+     handleGetSensorData(userId);
+  }, [userId]);
+
 
 
 
   return (
 
     <div className='App'>
-
       <div className="section top-section">
         <div className = 'user'>
           <label>User ID:</label>
@@ -78,9 +97,17 @@ function App() {
       ))} </ul>
       </div>
 
+      <div className='section bottom-section'>
+        <h1 style={{ display: 'block' }}> Sensor Values</h1>
+        <h2 style={{ display: 'block' }}> Temperature: {temperature}</h2>
+        <h2 style={{ display: 'block' }}> Humidity: {humidity}</h2>
+      </div>
+
 
     </div>
   );
 }
 
 export default App
+
+

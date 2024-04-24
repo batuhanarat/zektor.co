@@ -8,6 +8,7 @@ export type TUser = {
 
 export async function getUser(userID:string): Promise<TUser> {
     const response = await fetch(`${API_URL}/user/${userID}`);
+    console.log(response.json);
     return response.json();
 }
 

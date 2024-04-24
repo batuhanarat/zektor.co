@@ -38,7 +38,6 @@ app.post("/plantImage",createImageDataController);
 app.get("/plant/:plantId/images", getImagesDataController);
 
 app.post("/sensor",createSensorDataController);
-app.put("/sensor", updateSensorDataController)
 app.get("/sensor/:userId", getSensorDataController);
 
 

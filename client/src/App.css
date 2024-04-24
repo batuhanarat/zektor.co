@@ -36,7 +36,15 @@ margin :20px;
   align-items: center;
 
 }
-
+.bottom-section {
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+.bottom-section h1,
+.bottom-section h2 {
+  display: block;
+}
 .plants {
   display: grid;
   width: 600px;
