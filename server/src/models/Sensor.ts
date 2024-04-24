@@ -4,11 +4,12 @@ const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.ObjectId;
 
 const SensorSchema = new Schema({
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
     temperature: { type: Number },
     humidity: { type: Number },
-    lightIntensity: { type: Number },
-    co2Level:{ type: Number },
-    userId: { type: Schema.Types.ObjectId, ref: 'User' },}
+    lightIntensity: { type: Number, required: false  },
+    co2Level:{ type: Number, required: false  },
+}
 );
 
 const SensorModel =  mongoose.model(

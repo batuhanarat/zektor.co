@@ -12,8 +12,8 @@ import { getUsersController } from "./controllers/getUsersController";
 import { getPlantsController } from "./controllers/getPlantsController";
 import { getPlantController } from "./controllers/getPlantController";
 import { getImagesDataController } from "./controllers/getImagesDataController";
-
-
+import { createSensorDataController } from "./controllers/createSensorDataController";
+import { getSensorDataController } from "./controllers/getSensorDataController";
 
 
 
@@ -36,6 +36,10 @@ app.get("/plant/:plantId", getPlantController);
 
 app.post("/plantImage",createImageDataController);
 app.get("/plant/:plantId/images", getImagesDataController);
+
+app.post("/sensor",createSensorDataController);
+app.get("/sensor/:userId", getSensorDataController);
+
 
 app.get("/hello",(req:Request, res: Response) => {
     res.send("HELLO WORLD");
