@@ -9,9 +9,8 @@ export type TSensor = {
     co2Level: number,
 };
 
-export async function getSensor(userId:string): Promise<TSensor> {
+export async function getSensor(userId:string): Promise<TSensor[]> {
         const response = await fetch(`${API_URL}/sensor/${userId}`);
-
         if (!response.ok) {
             throw new Error('Failed to get sensor');
         }

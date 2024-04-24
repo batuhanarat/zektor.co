@@ -15,6 +15,7 @@ function App() {
   const [userId, setUserId] = useState('');
   const [loginMessage, setLoginMessage] = useState('');
   const [plants, setPlants] = useState<TPlant[]>([]);
+  const [sensors,setSensors] = useState<TSensor[]>([]);
   const [temperature, setTemperature] = useState<number | undefined>(undefined);
   const [humidity, setHumidity] = useState<number | undefined>(undefined);
 
@@ -48,10 +49,11 @@ function App() {
 
   async function handleGetSensorData(userID:string) {
     try {
-      const sensor:TSensor = await getSensor(userID);
-      console.error("sensor temp:", sensor.temperature);
-      setTemperature(sensor.temperature);
-      setHumidity(sensor.humidity);
+      const sensors:TSensor[] = await getSensor(userID);
+      setSensors(sensors);
+      const lastSensor:TSensor = sensors[sensors.length - 1];
+      setTemperature(lastSensor.temperature);
+      setHumidity(lastSensor.humidity);
     }
     catch (error) {
       console.error("Failed to create sensor:", error);
