@@ -4,6 +4,8 @@ config();
 import express, {Request,Response} from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import multer from "multer";
+
 import { createUserController } from "./controllers/createUserController";
 import { createPlantController } from "./controllers/createPlantController";
 import { createImageDataController } from "./controllers/createImageDataController";
@@ -25,6 +27,9 @@ app.use(cors({
 }));
 
 app.use(express.json());
+const storage = multer.memoryStorage();
+const upload = multer({storage:storage});
+
 
 app.post("/user", createUserController);
 app.get("/user/:userId", getUserController);
@@ -34,7 +39,7 @@ app.post("/plant", createPlantController);
 app.get("/user/:userId/plants", getPlantsController);
 app.get("/plant/:plantId", getPlantController);
 
-app.post("/plantImage",createImageDataController);
+app.post("/plantImage", upload.single("image"), createImageDataController);
 app.get("/plant/:plantId/images", getImagesDataController);
 
 app.post("/sensor",createSensorDataController);

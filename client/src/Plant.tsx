@@ -2,19 +2,15 @@ import { useState ,useEffect} from 'react'
 import {useParams } from 'react-router-dom';
 import './Plant.css'
 import { TPlant } from './api/getPlants';
-
 import { getPlant } from './api/getPlant';
 import { TPlantImage, getImages } from './api/getImages';
-
-
 
 function Plant() {
 
   const [plant, setPlant] = useState<TPlant>();
   const [allImages, setAllImages] = useState<TPlantImage[]>([]);
-
-
   const {plantId} = useParams();
+  const [file, setFile] = useState();
 
 
   async function fetchPlant() {
@@ -26,10 +22,6 @@ function Plant() {
     const plantImages = await getImages(plantId!);
     setAllImages(plantImages);
 }
-function handleImageDecoding(base64Image:string) {
-    // Assuming the base64Image is a PNG image. If not, change the MIME type accordingly.
-    return `data:image/png;base64,${base64Image}`;
-  }
 
 
   useEffect( () => {
@@ -52,11 +44,12 @@ return (
             <li key={plantImage._id}>
               <text>{new Date(plantImage.date).toLocaleDateString()}</text>
               <text>{new Date(plantImage.date).toLocaleTimeString()}</text>
-              <img src={handleImageDecoding(plantImage.image)} alt="Plant" />
+              <img src={plantImage.image} alt="Plant" />
             </li>
           ))}
         </ul>
       </div>
+
     </div>
   );
 }

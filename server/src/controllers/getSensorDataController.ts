@@ -6,7 +6,6 @@ export async function getSensorDataController(req:Request, res: Response) {
 
     try {
         const sensor = await Sensor.find({ userId: userId });
-
         return res.json(sensor);
     }
     catch (error) {
