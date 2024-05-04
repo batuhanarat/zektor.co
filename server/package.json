@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/index.ts\""
+    "dev": "nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"node --max-old-space-size=700 -r ts-node/register src/index.ts\""
   },
   "keywords": [],
   "author": "",
