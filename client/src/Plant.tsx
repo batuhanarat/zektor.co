@@ -20,6 +20,7 @@ function Plant() {
 
   async function fetchImages() {
     const plantImages = await getImages(plantId!);
+
     setAllImages(plantImages);
 }
 
@@ -42,9 +43,10 @@ return (
         <ul>
           {allImages.map((plantImage) => (
             <li key={plantImage._id}>
+
               <text>{new Date(plantImage.date).toLocaleDateString()}</text>
               <text>{new Date(plantImage.date).toLocaleTimeString()}</text>
-              <img src={plantImage.image} alt="Plant" />
+              <img src={plantImage.url} alt="Plant" />
             </li>
           ))}
         </ul>

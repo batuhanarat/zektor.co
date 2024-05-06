@@ -40,15 +40,15 @@ export async function createImageDataController(req: Request, res: Response) {
             Key: `plant_images/${Date.now()}_${file.originalname}`,
             Body: file.buffer,
             ContentType: file.mimetype,
-            ACL: 'public-read'
         };
 
 
         const data = await s3.upload(s3Params).promise();
+        console.log( "location: " +data.Location)
 
         const newImageData = await ImageDataModel.create({
             plantId: plantId,
-            image: data.Location,  // Save the URL instead of the image data
+            url: data.Location,  // Save the URL instead of the image data
             date: new Date()
         });
 

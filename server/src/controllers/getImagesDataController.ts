@@ -10,9 +10,10 @@ export async function getImagesDataController(req: Request, res: Response) {
         try {
             const plantImages = await ImageData.find({ plantId: plantId });
             res.json(plantImages.map(img => ({
-                url: img.image,
+                url: img.url,
                 date: img.date
             })));
+
                 } catch (error) {
             console.error("Failed to fetch images:", error);
         res.status(500).json({ message: "Failed to fetch images" });
