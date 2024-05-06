@@ -48,7 +48,7 @@ export async function createImageDataController(req: Request, res: Response) {
 
         const newImageData = await ImageDataModel.create({
             plantId: plantId,
-            url: data.Location,  // Save the URL instead of the image data
+            image: data.Location,  // Save the URL instead of the image data
             date: new Date()
         });
 
