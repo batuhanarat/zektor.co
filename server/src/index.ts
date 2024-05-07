@@ -17,9 +17,10 @@ import { getImagesDataController } from "./controllers/getImagesDataController";
 import { createSensorDataController } from "./controllers/createSensorDataController";
 import { getSensorDataController } from "./controllers/getSensorDataController";
 import { updateSensorDataController } from "./controllers/updateSensorDataController";
+import { createImagesDataController } from "./controllers/createImagesDataController";
 
 
-const PORT = 5002;
+const PORT = 5004;
 const app = express();
 
 app.use(cors({
@@ -29,7 +30,7 @@ app.use(cors({
 app.use(express.json());
 const storage = multer.memoryStorage();
 const upload = multer({storage:storage});
-
+const uploadMultiple = multer({ storage: multer.memoryStorage() });
 
 app.post("/user", createUserController);
 app.get("/user/:userId", getUserController);
@@ -40,6 +41,7 @@ app.get("/user/:userId/plants", getPlantsController);
 app.get("/plant/:plantId", getPlantController);
 
 app.post("/plantImage", upload.single("image"), createImageDataController);
+app.post("/plantImages", uploadMultiple.array("images"), createImagesDataController);
 app.get("/plant/:plantId/images", getImagesDataController);
 
 app.post("/sensor",createSensorDataController);

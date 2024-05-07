@@ -48,7 +48,7 @@ export async function createImageDataController(req: Request, res: Response) {
 
         const newImageData = await ImageDataModel.create({
             plantId: plantId,
-            image: data.Location,  // Save the URL instead of the image data
+            url: data.Location,  // Save the URL instead of the image data
             date: new Date()
         });
 
@@ -68,7 +68,7 @@ export async function createImageDataController(req: Request, res: Response) {
             } else {
                 res.status(500).json({ message: "Failed to create plant image", error: "Unknown error occurred" });
             }
-           }
+        }
     }
 
 
