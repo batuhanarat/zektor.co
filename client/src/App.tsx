@@ -23,6 +23,7 @@ function App() {
   async function handleGetUser(userID:string) {
     try {
       const user: TUser = await getUser(userID);
+      console.log(user)
       setUserId(userID);
       setLoginMessage(`User ID : ${userID} - logged in`);
       const userPlants = await getPlants(userID);
@@ -49,9 +50,10 @@ function App() {
 
   async function handleGetSensorData(userID:string) {
     try {
-      const sensors:TSensor[] = await getSensor(userID);
-      setSensors(sensors);
-      const lastSensor:TSensor = sensors[sensors.length - 1];
+      const allSensors:TSensor[] = await getSensor(userID);
+      console.log(sensors);
+      setSensors(allSensors);
+      const lastSensor:TSensor = allSensors[allSensors.length - 1];
       setTemperature(lastSensor.temperature);
       setHumidity(lastSensor.humidity);
     }

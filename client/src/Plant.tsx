@@ -10,7 +10,6 @@ function Plant() {
   const [plant, setPlant] = useState<TPlant>();
   const [allImages, setAllImages] = useState<TPlantImage[]>([]);
   const {plantId} = useParams();
-  const [file, setFile] = useState();
 
 
   async function fetchPlant() {
