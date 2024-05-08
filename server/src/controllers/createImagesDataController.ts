@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { spawn } from "child_process";
 import AWS from 'aws-sdk';
 import ImageDataModel from "../models/ImageData";
 import UserModel from "../models/User";
@@ -10,7 +11,6 @@ type ResponseElement = {
     message?: string;
     imageData?: any; // Adjust the type based on what imageData contains
     error?: string;  // Optional error message property
-
 };
 
 // AWS S3 configuration
@@ -39,6 +39,7 @@ export async function createImagesDataController(req: Request, res: Response) {
     }
 
     let responses: ResponseElement[] = [];
+    let imagesData: { id: string, image: Buffer }[] = [];
     for (const [index, file] of files.entries()) {
         const plantId = user.plants[index];
         if (!plantId) {
@@ -55,7 +56,7 @@ export async function createImagesDataController(req: Request, res: Response) {
 
         try {
             const data = await s3.upload(s3Params).promise();
-            console.log( "location: " +data.Location)
+            console.log("location: " + data.Location)
 
             const newImageData = await ImageDataModel.create({
                 plantId: plantId,
@@ -63,6 +64,7 @@ export async function createImagesDataController(req: Request, res: Response) {
                 date: new Date()
             });
 
+            imagesData.push({ id: newImageData._id.toString(), image: file.buffer });
 
             const plant = await Plant.findById(plantId);
             if (!plant) {
@@ -73,13 +75,26 @@ export async function createImagesDataController(req: Request, res: Response) {
             plant.images.push(newImageData._id);
             await plant.save();
             responses.push({ Status: "ok", imageData: newImageData });
-        } catch (error:any) {
+        } catch (error: any) {
             if (error instanceof Error) {
                 responses.push({ Status: "error", message: `Failed to upload image ${index}`, error: error.message });
             } else {
                 responses.push({ Status: "error", message: `Failed to upload image ${index}`, error: "An unknown error occurred" });
-            }        }
+            }
+        }
     }
+
+    // Spawn a new process to run the Python script
+    const pythonProcess = spawn('python3', ['model_upload_new.py', JSON.stringify(imagesData)]);
+
+    // Handle Python script output
+    pythonProcess.stdout.on('data', (data) => {
+        console.log(`Python script output: ${data}`);
+    });
+
+    pythonProcess.stderr.on('data', (data) => {
+        console.error(`Python script error: ${data}`);
+    });
 
     res.json(responses);
 }
