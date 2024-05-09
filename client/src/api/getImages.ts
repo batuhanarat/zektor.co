@@ -4,6 +4,7 @@ export type TPlantImage = {
     _id: string,
     plantId: string,
     url: string,
+    developmentPhase: number,
     date: Date,
 };
 

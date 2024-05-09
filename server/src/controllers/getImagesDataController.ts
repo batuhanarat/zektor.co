@@ -11,7 +11,8 @@ export async function getImagesDataController(req: Request, res: Response) {
             const plantImages = await ImageData.find({ plantId: plantId });
             res.json(plantImages.map(img => ({
                 url: img.url,
-                date: img.date
+                date: img.date,
+                devPhase : img.developmentPhase
             })));
 
                 } catch (error) {
