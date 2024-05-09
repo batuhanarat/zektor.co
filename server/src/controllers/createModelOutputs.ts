@@ -35,6 +35,13 @@ export async function createModelOutputs(req: Request, res: Response) {
 
         res.status(200).json({ message: "Predictions updated successfully" });
     } catch (error) {
-        res.status(500).json({ message: "Failed to update predictions", error: error.message });
+        if (error instanceof Error && error.message) {
+            res.status(500).json({ message: "Failed to update predictions", error: error.message });
+        } else {
+            res.status(500).json({ message: "Failed to update predictions", error:"Unknown error occurred"   });
+
+        }
     }
 }
+
+
