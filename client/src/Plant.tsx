@@ -46,7 +46,7 @@ return (
 
               <text>{new Date(plantImage.date).toLocaleDateString()}</text>
               <text>{new Date(plantImage.date).toLocaleTimeString()}</text>
-              <text>Development Phase: {plantImage.developmentPhase}</text>
+              <text>Dev Phase: {plantImage.developmentPhase !== undefined ? plantImage.developmentPhase : 'N/A'}</text>
 
               <img src={plantImage.url} alt="Plant" />
             </li>

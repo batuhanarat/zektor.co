@@ -12,7 +12,7 @@ export async function getImagesDataController(req: Request, res: Response) {
             res.json(plantImages.map(img => ({
                 url: img.url,
                 date: img.date,
-                devPhase : img.developmentPhase
+                developmentPhase : img.developmentPhase
             })));
 
                 } catch (error) {

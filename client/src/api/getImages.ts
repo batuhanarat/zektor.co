@@ -18,6 +18,9 @@ export async function getImages(plantId:string): Promise<TPlantImage[]> {
         }
         const data = await response.json(); // Properly wait for the JSON to be parsed
         console.log("Getting images response:", data);
+
+        // Log developmentPhase values
+
         return data;
     }
 
