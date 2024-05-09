@@ -18,6 +18,7 @@ import { createSensorDataController } from "./controllers/createSensorDataContro
 import { getSensorDataController } from "./controllers/getSensorDataController";
 import { updateSensorDataController } from "./controllers/updateSensorDataController";
 import { createImagesDataController } from "./controllers/createImagesDataController";
+import { createModelOutputs } from "./controllers/createModelOutputs";
 
 
 const PORT = 5004;
@@ -46,6 +47,9 @@ app.get("/plant/:plantId/images", getImagesDataController);
 
 app.post("/sensor",createSensorDataController);
 app.get("/sensor/:userId", getSensorDataController);
+
+
+app.post("/developmentPhaseOutput", createModelOutputs);
 
 
 app.get("/hello",(req:Request, res: Response) => {

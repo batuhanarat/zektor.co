@@ -37,6 +37,7 @@ return (
         <h2>Plant ID: {plant?._id}</h2>
         <h2> Plant Type: {plant?.type}
         <h2></h2> Order: {plant?.order}</h2>
+        <h2> Development Phase : {plant?.developmentPhase}</h2>
       </div>
       <div className='plantImages'>
         <ul>
@@ -45,6 +46,8 @@ return (
 
               <text>{new Date(plantImage.date).toLocaleDateString()}</text>
               <text>{new Date(plantImage.date).toLocaleTimeString()}</text>
+              <text>Development Phase: {plantImage.developmentPhase}</text>
+
               <img src={plantImage.url} alt="Plant" />
             </li>
           ))}

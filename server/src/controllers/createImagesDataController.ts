@@ -28,7 +28,7 @@ export async function createImagesDataController(req: Request, res: Response) {
     }
 
     const files = req.files as Express.Multer.File[]; // This casts req.files to the correct type
-    const { userId } = req.body; //hi
+    const { userId } = req.body;
     const user = await UserModel.findById(userId);
     if (!user) {
         return res.status(404).send({ Status: "error", message: "User not found" });
@@ -39,7 +39,7 @@ export async function createImagesDataController(req: Request, res: Response) {
     }
 
     let responses: ResponseElement[] = [];
-    let imagesData: { id: string, image: string }[] = [];
+    let imagesData: { plant_id: string,image_id: string, image: string }[] = [];
     for (const [index, file] of files.entries()) {
         const plantId = user.plants[index];
         if (!plantId) {
@@ -64,7 +64,7 @@ export async function createImagesDataController(req: Request, res: Response) {
                 date: new Date()
             });
             const base64ImageData = file.buffer.toString('base64');
-            imagesData.push({ id: newImageData._id.toString(), image: base64ImageData });
+            imagesData.push({ plant_id: plantId.toString() ,image_id: newImageData._id.toString(), image: base64ImageData });
 
             const plant = await Plant.findById(plantId);
             if (!plant) {
