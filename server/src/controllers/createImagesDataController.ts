@@ -39,7 +39,7 @@ export async function createImagesDataController(req: Request, res: Response) {
     }
 
     let responses: ResponseElement[] = [];
-    let imagesData: { id: string, image: Buffer }[] = [];
+    let imagesData: { id: string, image: string }[] = [];
     for (const [index, file] of files.entries()) {
         const plantId = user.plants[index];
         if (!plantId) {
@@ -63,8 +63,8 @@ export async function createImagesDataController(req: Request, res: Response) {
                 url: data.Location,
                 date: new Date()
             });
-
-            imagesData.push({ id: newImageData._id.toString(), image: file.buffer });
+            const base64ImageData = file.buffer.toString('base64');
+            imagesData.push({ id: newImageData._id.toString(), image: base64ImageData });
 
             const plant = await Plant.findById(plantId);
             if (!plant) {
