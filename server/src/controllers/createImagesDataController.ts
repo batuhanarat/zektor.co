@@ -84,7 +84,7 @@ export async function createImagesDataController(req: Request, res: Response) {
         }
     }
 
-   /*
+
     // Spawn a new process to run the Python script
     const pythonProcess = spawn('python3', ['/home/ubuntu/Comp491/model_upload_new.py', JSON.stringify(imagesData)]
     , {
@@ -100,7 +100,7 @@ export async function createImagesDataController(req: Request, res: Response) {
     pythonProcess.stderr.on('data', (data) => {
         console.error(`Python script error: ${data}`);
     });
-    */
+
 
     res.json(responses);
 }
