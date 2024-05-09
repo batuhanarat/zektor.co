@@ -3,16 +3,16 @@ import ImageData from "../models/ImageData";
 import Plant from "../models/Plant";
 
 export async function createModelOutputs(req: Request, res: Response) {
-    const { predictions, image_ids, plant_ids } = req.body;
+    const { predictions, imageIds, plantIds } = req.body;
 
-    if (!predictions || !image_ids || predictions.length !== image_ids.length) {
+    if (!predictions || !imageIds || predictions.length !== imageIds.length) {
         return res.status(400).json({ message: "Invalid predictions or ids data" });
     }
 
     try {
-        for (let i = 0; i < image_ids.length; i++) {
-            const imageId = image_ids[i];
-            const plantId = plant_ids[i]
+        for (let i = 0; i < imageIds.length; i++) {
+            const imageId = imageIds[i];
+            const plantId = plantIds[i]
             const prediction = predictions[i];
 
             const image = await ImageData.findById(imageId);
