@@ -9,6 +9,7 @@ const SensorSchema = new Schema({
     humidity: { type: Number },
     lightIntensity: { type: Number, required: false  },
     co2Level:{ type: Number, required: false  },
+    date: { type: Date, default: Date.now },
 }
 );
 

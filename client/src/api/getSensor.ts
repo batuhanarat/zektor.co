@@ -7,6 +7,7 @@ export type TSensor = {
     humidity: number,
     lightIntensity: number,
     co2Level: number,
+    date: Date,
 };
 
 export async function getSensor(userId:string): Promise<TSensor[]> {

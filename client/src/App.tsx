@@ -8,6 +8,7 @@ import { createUser } from './api/createUser';
 import { getPlants, TPlant } from './api/getPlants';
 import { getSensor, TSensor } from './api/getSensor';
 
+
 import plant1Image from './assets/images/1.png';
 import plant2Image from './assets/images/2.png';
 import plant3Image from './assets/images/3.png';
