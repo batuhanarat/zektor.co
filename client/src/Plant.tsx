@@ -4,6 +4,10 @@ import './Plant.css'
 import { TPlant } from './api/getPlants';
 import { getPlant } from './api/getPlant';
 import { TPlantImage, getImages } from './api/getImages';
+import plant1Image from './assets/images/1.png';
+import plant2Image from './assets/images/2.png';
+import plant3Image from './assets/images/3.png';
+import plant4Image from './assets/images/4.png';
 
 function Plant() {
 
@@ -34,10 +38,27 @@ function Plant() {
 return (
     <div className='Plant'>
       <div>
-        <h2>Plant ID: {plant?._id}</h2>
+          <div style={{ textAlign: 'center' }}>
+              <img
+                src={
+                  plant?.developmentPhase === 1
+                    ? plant1Image
+                    : plant?.developmentPhase === 2
+                    ? plant2Image
+                    : plant?.developmentPhase === 3
+                    ? plant3Image
+                    : plant?.developmentPhase === 4
+                    ? plant4Image
+                    : ''
+                }
+                alt={`Image for ${plant?.type}`}
+                width={70}
+                height={70}
+              />
+        </div>
+        <h2> Development Phase : {plant?.developmentPhase}</h2>
         <h2> Plant Type: {plant?.type}
         <h2></h2> Order: {plant?.order}</h2>
-        <h2> Development Phase : {plant?.developmentPhase}</h2>
       </div>
       <div className='plantImages'>
         <ul>

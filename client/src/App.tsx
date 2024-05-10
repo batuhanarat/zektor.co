@@ -8,6 +8,10 @@ import { createUser } from './api/createUser';
 import { getPlants, TPlant } from './api/getPlants';
 import { getSensor, TSensor } from './api/getSensor';
 
+import plant1Image from './assets/images/1.png';
+import plant2Image from './assets/images/2.png';
+import plant3Image from './assets/images/3.png';
+import plant4Image from './assets/images/4.png';
 
 
 function App() {
@@ -18,11 +22,12 @@ function App() {
     return localStorage.getItem('userId') || '';
   });
   const [loginMessage, setLoginMessage] = useState('');
-//  const [plants, setPlants] = useState<TPlant[]>([]);
-const [plants, setPlants] = useState<TPlant[]>(() => {
-  const storedPlants = localStorage.getItem('plants');
-  return storedPlants ? JSON.parse(storedPlants) : [];
-});
+  //  const [plants, setPlants] = useState<TPlant[]>([]);
+  const [plants, setPlants] = useState<TPlant[]>(() => {
+    const storedPlants = localStorage.getItem('plants');
+    return storedPlants ? JSON.parse(storedPlants) : [];
+  });
+
   const [sensors,setSensors] = useState<TSensor[]>([]);
   const [temperature, setTemperature] = useState<number | undefined>(undefined);
   const [humidity, setHumidity] = useState<number | undefined>(undefined);
@@ -36,8 +41,12 @@ const [plants, setPlants] = useState<TPlant[]>(() => {
       setLoginMessage(`User ID : ${userID} - logged in`);
       const userPlants = await getPlants(userID);
       setPlants(userPlants);
+
       localStorage.setItem('userId', userID);
       localStorage.setItem('plants', JSON.stringify(userPlants));
+
+
+
 
 
 
@@ -117,7 +126,29 @@ const [plants, setPlants] = useState<TPlant[]>(() => {
       <ul className='plants'>
       {plants.map((plant) => (
         <li key={plant._id}>
-          <Link to={`plants/${plant._id}`}>{plant.type}</Link>
+
+<Link to={`plants/${plant._id}`}>
+  <div style={{ textAlign: 'center' }}>
+    <img
+      src={
+        plant.developmentPhase === 1
+          ? plant1Image
+          : plant.developmentPhase === 2
+          ? plant2Image
+          : plant.developmentPhase === 3
+          ? plant3Image
+          : plant.developmentPhase === 4
+          ? plant4Image
+          : ''
+      }
+      alt={`Image for ${plant.type}`}
+      width={70}
+      height={70}
+    />
+    <p style={{ margin: '0', fontSize: '14px' }}>{ "#" + plant.order}</p>
+  </div>
+</Link>
+
         </li>
       ))} </ul>
       </div>
