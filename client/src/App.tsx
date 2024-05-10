@@ -12,9 +12,17 @@ import { getSensor, TSensor } from './api/getSensor';
 
 function App() {
 
-  const [userId, setUserId] = useState('');
+  //const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState(() => {
+    // Initialize user ID from localStorage, or an empty string if it's not found
+    return localStorage.getItem('userId') || '';
+  });
   const [loginMessage, setLoginMessage] = useState('');
-  const [plants, setPlants] = useState<TPlant[]>([]);
+//  const [plants, setPlants] = useState<TPlant[]>([]);
+const [plants, setPlants] = useState<TPlant[]>(() => {
+  const storedPlants = localStorage.getItem('plants');
+  return storedPlants ? JSON.parse(storedPlants) : [];
+});
   const [sensors,setSensors] = useState<TSensor[]>([]);
   const [temperature, setTemperature] = useState<number | undefined>(undefined);
   const [humidity, setHumidity] = useState<number | undefined>(undefined);
@@ -28,6 +36,10 @@ function App() {
       setLoginMessage(`User ID : ${userID} - logged in`);
       const userPlants = await getPlants(userID);
       setPlants(userPlants);
+      localStorage.setItem('userId', userID);
+      localStorage.setItem('plants', JSON.stringify(userPlants));
+
+
 
     } catch (error) {
       console.error("Failed to fetch user:", error);
@@ -35,6 +47,14 @@ function App() {
       setPlants([]);
     }
 }
+  function handleLogout() {
+    // Clear user ID and plants data from localStorage
+    localStorage.removeItem('userId');
+    localStorage.removeItem('plants');
+    setUserId('');
+    setPlants([]);
+    setLoginMessage('Logged out');
+  }
 
   async function handleCreateUser() {
     try {
@@ -83,6 +103,7 @@ function App() {
             setUserId(e.target.value);
           }} />
           <button onClick={() => handleGetUser(userId)}>Get User</button>
+          <button onClick={handleLogout}>Logout</button>
         </div>
         <button onClick={handleCreateUser}>Create User</button>
           <div className='loginMessage'>

@@ -15,10 +15,11 @@
 }
 
 .top-section{
-  position: absolute;
-  top: 0;
   width: 100%;
   padding: 1rem;
+  display: flex;
+  justify-content: space-between; /* Align items horizontally */
+  align-items: center; /* Align items vertically */
 }
 
 .top-section button {
