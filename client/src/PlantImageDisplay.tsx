@@ -10,7 +10,7 @@ function PlantImageDisplay({ plant }: { plant: TPlant }) {
   useEffect(() => {
     // Fetch the URL for the last image ID
     const fetchImage = async () => {
-      const lastImageId = plant.images[plant.images.length - 2];
+      const lastImageId = plant.images[plant.images.length - 1];
       console.log(plant._id);
       console.log("plant images array: " + plant.images.length);
       console.log(lastImageId);
@@ -22,7 +22,7 @@ function PlantImageDisplay({ plant }: { plant: TPlant }) {
     };
 
     fetchImage();
-  }, [plant]);
+  }, [plant,plant.images]);
 
   return (
     <div>
