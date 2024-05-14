@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import ImageData from "../models/ImageData";
 
 
-export async function getImageDataController(req: Request, res: Response) {
+export async function getImageController(req: Request, res: Response) {
 
     const id = req.params.imageId;
 
