@@ -11,6 +11,7 @@ function PlantImageDisplay({ plant }: { plant: TPlant }) {
     // Fetch the URL for the last image ID
     const fetchImage = async () => {
       const lastImageId = plant.images[plant.images.length - 2];
+      console.log("plant images array: " + plant.images.length)
       console.log(lastImageId);
       console.log(lastImageId);
  //a
