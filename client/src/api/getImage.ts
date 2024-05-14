@@ -6,6 +6,8 @@ import { TPlantImage } from "./getImages";
 export async function getImage(imageId:string): Promise<TPlantImage> {
 
     try {
+        console.log(imageId);
+
         const response = await fetch(`${API_URL}/plantTest/${imageId}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch image: ${response.statusText}`);
