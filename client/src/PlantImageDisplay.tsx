@@ -34,7 +34,6 @@ function PlantImageDisplay({ plant }: { plant: TPlant }) {
             width={70}
             height={70}
           />
-          <p style={{ margin: '0', fontSize: '14px' }}>{`#${plant.order}`}</p>
         </>
       )}
     </div>
