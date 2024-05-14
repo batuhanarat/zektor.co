@@ -5,15 +5,15 @@ import ImageData from "../models/ImageData";
 
 export async function getImageDataController(req: Request, res: Response) {
 
-    const imageId = req.params.imageId.toString(); // Convert to string if needed
+    const id = req.params.imageId;
 
         try {
-            const plantImage = await ImageData.findById(imageId);
+            const plantImage = await ImageData.findById(id);
             res.json(plantImage);
 
-                } catch (error) {
+            } catch (error) {
             console.error("Failed to fetch images:", error);
-        res.status(500).json({ message: "Failed to fetch images" });
+           res.status(500).json({ message: "Failed to fetch images" });
         }
     }
 

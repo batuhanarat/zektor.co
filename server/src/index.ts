@@ -19,6 +19,7 @@ import { getSensorDataController } from "./controllers/getSensorDataController";
 import { updateSensorDataController } from "./controllers/updateSensorDataController";
 import { createImagesDataController } from "./controllers/createImagesDataController";
 import { createModelOutputs } from "./controllers/createModelOutputs";
+import { getImageDataController} from "./controllers/getImageDataController";
 
 
 const PORT = 5004;
@@ -44,6 +45,7 @@ app.get("/plant/:plantId", getPlantController);
 app.post("/plantImage", upload.single("image"), createImageDataController);
 app.post("/plantImages", uploadMultiple.array("images"), createImagesDataController);
 app.get("/plant/:plantId/images", getImagesDataController);
+app.get("/deneme/:imageId", getImageDataController);
 
 app.post("/sensor",createSensorDataController);
 app.get("/sensor/:userId", getSensorDataController);
