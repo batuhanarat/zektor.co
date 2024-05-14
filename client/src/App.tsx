@@ -7,6 +7,7 @@ import { getUser,TUser } from './api/getUser';
 import { createUser } from './api/createUser';
 import { getPlants, TPlant } from './api/getPlants';
 import { getSensor, TSensor } from './api/getSensor';
+import PlantImageDisplay from './PlantImageDisplay'; // Import the PlantImageDisplay component
 
 
 import plant1Image from './assets/images/1.png';
@@ -45,11 +46,6 @@ function App() {
 
       localStorage.setItem('userId', userID);
       localStorage.setItem('plants', JSON.stringify(userPlants));
-
-
-
-
-
 
     } catch (error) {
       console.error("Failed to fetch user:", error);
@@ -121,35 +117,16 @@ function App() {
         </div>
       </div>
 
-
-
       <div className='section middle-section'>
       <ul className='plants'>
-      {plants.map((plant) => (
+      { plants.map((plant) => (
         <li key={plant._id}>
-
 <Link to={`plants/${plant._id}`}>
-  <div style={{ textAlign: 'center' }}>
-    <img
-      src={
-        plant.developmentPhase === 1
-          ? plant1Image
-          : plant.developmentPhase === 2
-          ? plant2Image
-          : plant.developmentPhase === 3
-          ? plant3Image
-          : plant.developmentPhase === 4
-          ? plant4Image
-          : ''
-      }
-      alt={`Image for ${plant.type}`}
-      width={70}
-      height={70}
-    />
-    <p style={{ margin: '0', fontSize: '14px' }}>{ "#" + plant.order}</p>
-  </div>
-</Link>
-
+                <div>
+                  <PlantImageDisplay plant={plant} />
+                  <p style={{ margin: '0', fontSize: '14px' }}>{`#${plant.order}`}</p>
+                </div>
+              </Link>
         </li>
       ))} </ul>
       </div>
