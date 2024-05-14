@@ -8,7 +8,7 @@ export async function getImageDataController(req: Request, res: Response) {
         const imageId = req.params.imageId;
 
         try {
-            const plantImage = await ImageData.find({ imageId: imageId });
+            const plantImage = await ImageData.findById(imageId);
             res.json(plantImage);
 
                 } catch (error) {
