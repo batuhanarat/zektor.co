@@ -10,8 +10,12 @@ function PlantImageDisplay({ plant }: { plant: TPlant }) {
   useEffect(() => {
     // Fetch the URL for the last image ID
     const fetchImage = async () => {
-      const lastImageId = plant.images[plant.images.length - 1];
+      const lastImageId = plant.images[plant.images.length - 2];
+      console.log(lastImageId);
+      console.log(lastImageId);
+
       const image: TPlantImage = await getImage(lastImageId);
+      console.log(image.url);
       setCurrentImage(image.url);
     };
 
