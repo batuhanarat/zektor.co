@@ -5,7 +5,7 @@ import ImageData from "../models/ImageData";
 
 export async function getImageDataController(req: Request, res: Response) {
 
-        const imageId = req.params.imageId;
+    const imageId = req.params.imageId.toString(); // Convert to string if needed
 
         try {
             const plantImage = await ImageData.findById(imageId);
