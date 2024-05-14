@@ -15,7 +15,7 @@ export async function getImage(imageId:string): Promise<TPlantImage> {
         return data;
     } catch (error) {
         console.error("API call to get images failed:", error);
-        throw new Error('Failed to fetch image');
+        throw new Error('Failed to fetch image'); //a
     }
 }
 

@@ -13,7 +13,7 @@ function PlantImageDisplay({ plant }: { plant: TPlant }) {
       const lastImageId = plant.images[plant.images.length - 2];
       console.log(lastImageId);
       console.log(lastImageId);
-
+ //a
       const image: TPlantImage = await getImage(lastImageId);
       console.log(image.url);
       setCurrentImage(image.url);

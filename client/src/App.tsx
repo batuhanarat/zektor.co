@@ -121,12 +121,12 @@ function App() {
       <ul className='plants'>
       { plants.map((plant) => (
         <li key={plant._id}>
-<Link to={`plants/${plant._id}`}>
-                <div>
-                  <PlantImageDisplay plant={plant} />
-                  <p style={{ margin: '0', fontSize: '14px' }}>{`#${plant.order}`}</p>
-                </div>
-              </Link>
+        <Link to={`plants/${plant._id}`}>
+                        <div>
+                          <PlantImageDisplay plant={plant} />
+                          <p style={{ margin: '0', fontSize: '14px' }}>{`#${plant.order}`}</p>
+                        </div>
+                      </Link>
         </li>
       ))} </ul>
       </div>
