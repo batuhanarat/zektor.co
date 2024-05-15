@@ -24,6 +24,7 @@ export async function createImageDataController(req: Request, res: Response) {
     if (!bucketName) {
         return res.status(500).send({ Status: "error", message: "Server configuration error: AWS bucket name is not defined." });
     }
+
         try {
             const user = await UserModel.findById(userId);
         if (!user) {

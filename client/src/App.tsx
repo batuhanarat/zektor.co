@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect, useReducer} from 'react'
 import { Link } from 'react-router-dom';
 
 
@@ -7,13 +7,15 @@ import { getUser,TUser } from './api/getUser';
 import { createUser } from './api/createUser';
 import { getPlants, TPlant } from './api/getPlants';
 import { getSensor, TSensor } from './api/getSensor';
-import PlantImageDisplay from './PlantImageDisplay'; // Import the PlantImageDisplay component
+import PlantImageDisplay from './PlantImageDisplay';
 
 
 import plant1Image from './assets/images/1.png';
 import plant2Image from './assets/images/2.png';
 import plant3Image from './assets/images/3.png';
 import plant4Image from './assets/images/4.png';
+import { TPlantImage } from './api/getImages';
+import { getImage } from './api/getImage';
 
 
 function App() {
@@ -33,7 +35,8 @@ function App() {
   const [sensors,setSensors] = useState<TSensor[]>([]);
   const [temperature, setTemperature] = useState<number | undefined>(undefined);
   const [humidity, setHumidity] = useState<number | undefined>(undefined);
-
+  const [latestImages, setLatestImages] = useState<{ [key: string]: string }>({});
+  const [reducerValue,forceUpdate] = useReducer(x => x+1,0)
 
   async function handleGetUser(userID:string) {
     try {
@@ -43,6 +46,15 @@ function App() {
       setLoginMessage(`User ID : ${userID} - logged in`);
       const userPlants = await getPlants(userID);
       setPlants(userPlants);
+
+      const latestImagesMap: { [key: string]: string } = {};
+      for (const plant of userPlants) {
+        const lastImageId = plant.images[plant.images.length - 1];
+        const image: TPlantImage = await getImage(lastImageId);
+        latestImagesMap[plant._id] = image.url;
+      }
+      forceUpdate();
+      setLatestImages(latestImagesMap);
 
       localStorage.setItem('userId', userID);
       localStorage.setItem('plants', JSON.stringify(userPlants));
@@ -91,9 +103,31 @@ function App() {
   }
 
   useEffect(() => {
+    async function fetchData() {
+      try {
+        const user: TUser = await getUser(userId);
+        setLoginMessage(`User ID : ${userId} - logged in`);
+        const userPlants = await getPlants(userId);
+        setPlants(userPlants);
 
-     handleGetSensorData(userId);
-  }, [userId]);
+        const latestImagesMap: { [key: string]: string } = {};
+        for (const plant of userPlants) {
+          const lastImageId = plant.images[plant.images.length - 1];
+          const image: TPlantImage = await getImage(lastImageId);
+          latestImagesMap[plant._id] = image.url;
+        }
+        setLatestImages(latestImagesMap);
+
+        localStorage.setItem('plants', JSON.stringify(userPlants));
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+        setLoginMessage('User cannot log in');
+        setPlants([]);
+      }
+    }
+
+    fetchData();
+  }, [userId,reducerValue]);
 
 
 
@@ -121,12 +155,12 @@ function App() {
       <ul className='plants'>
       { plants.map((plant) => (
         <li key={plant._id}>
-        <Link to={`plants/${plant._id}`}>
-                        <div>
-                          <PlantImageDisplay plant={plant} />
-                          <p style={{ margin: '0', fontSize: '14px' }}>{`#${plant.order}`}</p>
-                        </div>
-                      </Link>
+     <Link to={`plants/${plant._id}`}>
+                <div>
+                  <PlantImageDisplay plant={plant} latestImage={latestImages[plant._id]} />
+                  <p style={{ margin: '0', fontSize: '14px' }}>{`#${plant.order}`}</p>
+                </div>
+              </Link>
         </li>
       ))} </ul>
       </div>

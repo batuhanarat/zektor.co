@@ -4,7 +4,8 @@ config();
 import express, {Request,Response} from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import multer from "multer";
+import multer from 'multer';
+
 
 import { createUserController } from "./controllers/createUserController";
 import { createPlantController } from "./controllers/createPlantController";
