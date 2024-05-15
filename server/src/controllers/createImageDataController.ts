@@ -22,7 +22,7 @@ export async function createImageDataController(req: Request, res: Response) {
     const imageBuffer = req.file.buffer;
 
     // Send the image data to WebSocket clients
-    wss.clients.forEach((client) => {
+    wss.clients.forEach((client: any) => {
         if (client.readyState === WebSocket.OPEN) {
             client.send(imageBuffer);
         }
