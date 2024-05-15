@@ -36,25 +36,67 @@ function App() {
   const [temperature, setTemperature] = useState<number | undefined>(undefined);
   const [humidity, setHumidity] = useState<number | undefined>(undefined);
   const [latestImages, setLatestImages] = useState<{ [key: string]: string }>({});
-  const [reducerValue,forceUpdate] = useReducer(x => x+1,0)
+
+  useEffect(() => {
+    const socket = new WebSocket('ws://54.208.55.232:5005');
+
+    socket.onopen = () => {
+      console.log('Connected to WebSocket server');
+    };
+
+    socket.onmessage = (event) => {
+      console.log('Received message from server');
+      const imageData = JSON.parse(event.data);
+      setLatestImages((prevImages) => ({
+        ...prevImages,
+        [imageData.plantId]: imageData.image,
+      }));
+    };
+
+    socket.onclose = () => {
+      console.log('Disconnected from WebSocket server');
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const user: TUser = await getUser(userId);
+        setLoginMessage(`User ID : ${userId} - logged in`);
+        const userPlants = await getPlants(userId);
+        setPlants(userPlants);
+
+        const latestImagesMap: { [key: string]: string } = {};
+        for (const plant of userPlants) {
+          const lastImageId = plant.images[plant.images.length - 1];
+          const image: TPlantImage = await getImage(lastImageId);
+          latestImagesMap[plant._id] = image.url;
+        }
+        setLatestImages(latestImagesMap);
+
+        localStorage.setItem('plants', JSON.stringify(userPlants));
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+        setLoginMessage('User cannot log in');
+        setPlants([]);
+      }
+    }
+
+    fetchData();
+  }, [userId]);
+
 
   async function handleGetUser(userID:string) {
     try {
       const user: TUser = await getUser(userID);
-      console.log(user)
       setUserId(userID);
       setLoginMessage(`User ID : ${userID} - logged in`);
       const userPlants = await getPlants(userID);
       setPlants(userPlants);
-
-      const latestImagesMap: { [key: string]: string } = {};
-      for (const plant of userPlants) {
-        const lastImageId = plant.images[plant.images.length - 1];
-        const image: TPlantImage = await getImage(lastImageId);
-        latestImagesMap[plant._id] = image.url;
-      }
-      forceUpdate();
-      setLatestImages(latestImagesMap);
 
       localStorage.setItem('userId', userID);
       localStorage.setItem('plants', JSON.stringify(userPlants));
@@ -102,32 +144,6 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const user: TUser = await getUser(userId);
-        setLoginMessage(`User ID : ${userId} - logged in`);
-        const userPlants = await getPlants(userId);
-        setPlants(userPlants);
-
-        const latestImagesMap: { [key: string]: string } = {};
-        for (const plant of userPlants) {
-          const lastImageId = plant.images[plant.images.length - 1];
-          const image: TPlantImage = await getImage(lastImageId);
-          latestImagesMap[plant._id] = image.url;
-        }
-        setLatestImages(latestImagesMap);
-
-        localStorage.setItem('plants', JSON.stringify(userPlants));
-      } catch (error) {
-        console.error("Failed to fetch user:", error);
-        setLoginMessage('User cannot log in');
-        setPlants([]);
-      }
-    }
-
-    fetchData();
-  }, [userId,reducerValue]);
 
 
 
