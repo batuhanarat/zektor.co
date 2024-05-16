@@ -11,15 +11,15 @@ interface PlantImageDisplayProps {
 function PlantImageDisplay({ plant, socket }: PlantImageDisplayProps) {
   const [currentImage, setCurrentImage] = useState<string>('');
 
-  const fetchImage = async () => {
-    const lastImageId = plant.images[plant.images.length - 1];
-    if (lastImageId) {
-      const image: TPlantImage = await getImage(lastImageId);
-      setCurrentImage(image.url);
-    }
-  };
-
   useEffect(() => {
+    const fetchImage = async () => {
+      const lastImageId = plant.images[plant.images.length - 1];
+      if (lastImageId) {
+        const image: TPlantImage = await getImage(lastImageId);
+        setCurrentImage(image.url);
+      }
+    };
+
     fetchImage();
   }, [plant]);
 

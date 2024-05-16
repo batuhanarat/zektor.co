@@ -60,13 +60,31 @@ function App() {
             });
             break;
           case 'development_phase_update':
-          case 'health_status_update':
             setPlants((prevPlants) => {
               const updatedPlants = prevPlants.map((plant) => {
                 if (plant._id === message.plantId) {
                   return {
                     ...plant,
                     developmentPhase: message.developmentPhase,
+                  };
+                }
+                return plant;
+              });
+              localStorage.setItem('plants', JSON.stringify(updatedPlants));
+              return updatedPlants;
+            });
+            const userPlants = await getPlants(userID);
+            setPlants(userPlants);
+            localStorage.setItem('userId', userID);
+            localStorage.setItem('plants', JSON.stringify(userPlants));
+
+            break;
+          case 'health_status_update':
+            setPlants((prevPlants) => {
+              const updatedPlants = prevPlants.map((plant) => {
+                if (plant._id === message.plantId) {
+                  return {
+                    ...plant,
                     healthStatus: message.healthStatus,
                   };
                 }
@@ -75,28 +93,11 @@ function App() {
               localStorage.setItem('plants', JSON.stringify(updatedPlants));
               return updatedPlants;
             });
+            const userPlants2 = await getPlants(userID);
+            setPlants(userPlants2);
+            localStorage.setItem('userId', userID);
+            localStorage.setItem('plants', JSON.stringify(userPlants2));
 
-            // Fetch and update the last image for the plant
-            const plantToUpdate = plants.find((plant) => plant._id === message.plantId);
-            if (plantToUpdate) {
-              const lastImageId = plantToUpdate.images[plantToUpdate.images.length - 1];
-              if (lastImageId) {
-                const image = await fetchImage(lastImageId);
-                setPlants((prevPlants) => {
-                  const updatedPlants = prevPlants.map((plant) => {
-                    if (plant._id === message.plantId) {
-                      return {
-                        ...plant,
-                        images: [...plant.images.slice(0, -1), image.url], // Update the last image URL
-                      };
-                    }
-                    return plant;
-                  });
-                  localStorage.setItem('plants', JSON.stringify(updatedPlants));
-                  return updatedPlants;
-                });
-              }
-            }
             break;
           default:
             console.error('Unknown message type:', message.type);
@@ -116,12 +117,6 @@ function App() {
       setLoginMessage('User cannot log in');
       setPlants([]);
     }
-  }
-
-  async function fetchImage(imageId: string) {
-    const response = await fetch(`/api/image/${imageId}`);
-    const image = await response.json();
-    return image;
   }
 
   function handleLogout() {
