@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer} from 'react'
+import { useState, useEffect} from 'react'
 import { Link } from 'react-router-dom';
 
 
@@ -7,15 +7,13 @@ import { getUser,TUser } from './api/getUser';
 import { createUser } from './api/createUser';
 import { getPlants, TPlant } from './api/getPlants';
 import { getSensor, TSensor } from './api/getSensor';
-import PlantImageDisplay from './PlantImageDisplay';
+import PlantImageDisplay from './PlantImageDisplay'; // Import the PlantImageDisplay component
 
 
 import plant1Image from './assets/images/1.png';
 import plant2Image from './assets/images/2.png';
 import plant3Image from './assets/images/3.png';
 import plant4Image from './assets/images/4.png';
-import { TPlantImage } from './api/getImages';
-import { getImage } from './api/getImage';
 
 
 function App() {
@@ -35,64 +33,12 @@ function App() {
   const [sensors,setSensors] = useState<TSensor[]>([]);
   const [temperature, setTemperature] = useState<number | undefined>(undefined);
   const [humidity, setHumidity] = useState<number | undefined>(undefined);
-  const [latestImages, setLatestImages] = useState<{ [key: string]: string }>({});
-
-  useEffect(() => {
-    const socket = new WebSocket('ws://54.208.55.232:5005');
-
-    socket.onopen = () => {
-      console.log('Connected to WebSocket server');
-    };
-
-    socket.onmessage = (event) => {
-      console.log('Received message from server');
-      const imageData = JSON.parse(event.data);
-      setLatestImages((prevImages) => ({
-        ...prevImages,
-        [imageData.plantId]: imageData.image,
-      }));
-    };
-
-    socket.onclose = () => {
-      console.log('Disconnected from WebSocket server');
-    };
-
-    return () => {
-      socket.close();
-    };
-  }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const user: TUser = await getUser(userId);
-        setLoginMessage(`User ID : ${userId} - logged in`);
-        const userPlants = await getPlants(userId);
-        setPlants(userPlants);
-
-        const latestImagesMap: { [key: string]: string } = {};
-        for (const plant of userPlants) {
-          const lastImageId = plant.images[plant.images.length - 1];
-          const image: TPlantImage = await getImage(lastImageId);
-          latestImagesMap[plant._id] = image.url;
-        }
-        setLatestImages(latestImagesMap);
-
-        localStorage.setItem('plants', JSON.stringify(userPlants));
-      } catch (error) {
-        console.error("Failed to fetch user:", error);
-        setLoginMessage('User cannot log in');
-        setPlants([]);
-      }
-    }
-
-    fetchData();
-  }, [userId]);
 
 
   async function handleGetUser(userID:string) {
     try {
       const user: TUser = await getUser(userID);
+      console.log(user)
       setUserId(userID);
       setLoginMessage(`User ID : ${userID} - logged in`);
       const userPlants = await getPlants(userID);
@@ -144,6 +90,10 @@ function App() {
     }
   }
 
+  useEffect(() => {
+
+     handleGetSensorData(userId);
+  }, [userId]);
 
 
 
@@ -171,12 +121,12 @@ function App() {
       <ul className='plants'>
       { plants.map((plant) => (
         <li key={plant._id}>
-     <Link to={`plants/${plant._id}`}>
-                <div>
-                  <PlantImageDisplay plant={plant} latestImage={latestImages[plant._id]} />
-                  <p style={{ margin: '0', fontSize: '14px' }}>{`#${plant.order}`}</p>
-                </div>
-              </Link>
+        <Link to={`plants/${plant._id}`}>
+                        <div>
+                          <PlantImageDisplay plant={plant} />
+                          <p style={{ margin: '0', fontSize: '14px' }}>{`#${plant.order}`}</p>
+                        </div>
+                      </Link>
         </li>
       ))} </ul>
       </div>
@@ -193,5 +143,4 @@ function App() {
 }
 
 export default App
-
 
