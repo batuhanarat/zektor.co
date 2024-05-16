@@ -60,7 +60,7 @@ function App() {
             });
             break;
           case 'development_phase_update':
-            setPlants((prevPlants) => {
+            /*setPlants((prevPlants) => {
               const updatedPlants = prevPlants.map((plant) => {
                 if (plant._id === message.plantId) {
                   return {
@@ -73,6 +73,7 @@ function App() {
               localStorage.setItem('plants', JSON.stringify(updatedPlants));
               return updatedPlants;
             });
+            */
             const userPlants = await getPlants(userID);
             setPlants(userPlants);
             localStorage.setItem('userId', userID);
@@ -80,7 +81,7 @@ function App() {
 
             break;
           case 'health_status_update':
-            setPlants((prevPlants) => {
+            /*setPlants((prevPlants) => {
               const updatedPlants = prevPlants.map((plant) => {
                 if (plant._id === message.plantId) {
                   return {
@@ -93,6 +94,7 @@ function App() {
               localStorage.setItem('plants', JSON.stringify(updatedPlants));
               return updatedPlants;
             });
+            */
             const userPlants2 = await getPlants(userID);
             setPlants(userPlants2);
             localStorage.setItem('userId', userID);
