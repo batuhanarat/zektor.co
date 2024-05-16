@@ -36,12 +36,10 @@ function App() {
       localStorage.setItem('plants', JSON.stringify(userPlants));
 
       // Establish WebSocket connection
-     // const ws = new WebSocket('ws://localhost:5004');
       const ws = new WebSocket('ws://54.208.55.232:5004');
-
       setSocket(ws);
 
-      ws.onmessage = (event) => {
+      ws.onmessage = async (event) => {
         const message = JSON.parse(event.data);
         switch (message.type) {
           case 'new_image':
@@ -62,26 +60,13 @@ function App() {
             });
             break;
           case 'development_phase_update':
-            setPlants((prevPlants) => {
-              const updatedPlants = prevPlants.map((plant) => {
-                if (plant._id === message.plantId) {
-                  return {
-                    ...plant,
-                    developmentPhase: message.developmentPhase,
-                  };
-                }
-                return plant;
-              });
-              localStorage.setItem('plants', JSON.stringify(updatedPlants));
-              return updatedPlants;
-            });
-            break;
           case 'health_status_update':
             setPlants((prevPlants) => {
               const updatedPlants = prevPlants.map((plant) => {
                 if (plant._id === message.plantId) {
                   return {
                     ...plant,
+                    developmentPhase: message.developmentPhase,
                     healthStatus: message.healthStatus,
                   };
                 }
@@ -90,13 +75,33 @@ function App() {
               localStorage.setItem('plants', JSON.stringify(updatedPlants));
               return updatedPlants;
             });
+
+            // Fetch and update the last image for the plant
+            const plantToUpdate = plants.find((plant) => plant._id === message.plantId);
+            if (plantToUpdate) {
+              const lastImageId = plantToUpdate.images[plantToUpdate.images.length - 1];
+              if (lastImageId) {
+                const image = await fetchImage(lastImageId);
+                setPlants((prevPlants) => {
+                  const updatedPlants = prevPlants.map((plant) => {
+                    if (plant._id === message.plantId) {
+                      return {
+                        ...plant,
+                        images: [...plant.images.slice(0, -1), image.url], // Update the last image URL
+                      };
+                    }
+                    return plant;
+                  });
+                  localStorage.setItem('plants', JSON.stringify(updatedPlants));
+                  return updatedPlants;
+                });
+              }
+            }
             break;
           default:
             console.error('Unknown message type:', message.type);
         }
       };
-
-
 
       ws.onerror = (error) => {
         console.error('WebSocket error:', error);
@@ -111,6 +116,12 @@ function App() {
       setLoginMessage('User cannot log in');
       setPlants([]);
     }
+  }
+
+  async function fetchImage(imageId: string) {
+    const response = await fetch(`/api/image/${imageId}`);
+    const image = await response.json();
+    return image;
   }
 
   function handleLogout() {
@@ -184,7 +195,6 @@ function App() {
                   <p style={{ margin: '0', fontSize: '10px' }}>{`#${plant.order}`}</p>
                   <p style={{ margin: '0', fontSize: '10px' }}>{plant.developmentPhase === 99 ? '...' : `Phase: ${plant.developmentPhase}`}</p>
                   <p style={{ margin: '0', fontSize: '10px' }}>{plant.healthStatus === 99 ? '...' : `Health: ${plant.healthStatus}`}</p>
-
                 </div>
               </Link>
             </li>
