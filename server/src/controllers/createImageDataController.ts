@@ -17,7 +17,7 @@ export async function createImageDataController(req: Request, res: Response, cli
     }
     const plantId = user.plants[order]; // Get the plantId using the order index
     if (!plantId) {
-      return res.status(400).send({ Status: 'error', data: 'Invalid plant order' });
+      return res.status(400).send({ Status: 'error', data: 'Plant is initalizing..' });
     }
 
     const imageData = {
