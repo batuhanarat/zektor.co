@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { TPlant } from './api/getPlants';
 import { getImage } from './api/getImage';
 import { TPlantImage } from './api/getImages';

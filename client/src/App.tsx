@@ -28,6 +28,8 @@ function App() {
   async function handleGetUser(userID: string) {
     try {
       const user: TUser = await getUser(userID);
+      console.log(user);
+      console.log(sensors);
       setUserId(userID);
       setLoginMessage(`User ID : ${userID} - logged in`);
       const userPlants = await getPlants(userID);

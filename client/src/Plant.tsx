@@ -39,24 +39,9 @@ return (
     <div className='Plant'>
       <div>
           <div style={{ textAlign: 'center' }}>
-              <img
-                src={
-                  plant?.developmentPhase === 1
-                    ? plant1Image
-                    : plant?.developmentPhase === 2
-                    ? plant2Image
-                    : plant?.developmentPhase === 3
-                    ? plant3Image
-                    : plant?.developmentPhase === 4
-                    ? plant4Image
-                    : ''
-                }
-                alt={`Image for ${plant?.type}`}
-                width={70}
-                height={70}
-              />
         </div>
         <h2> Development Phase : {plant?.developmentPhase}</h2>
+        <h2> Health Status : {plant?.healthStatus}</h2>
         <h2> Plant Type: {plant?.type}
         <h2></h2> Order: {plant?.order}</h2>
       </div>
@@ -68,6 +53,7 @@ return (
               <text>{new Date(plantImage.date).toLocaleDateString()}</text>
               <text>{new Date(plantImage.date).toLocaleTimeString()}</text>
               <text>Dev Phase: {plantImage.developmentPhase !== undefined ? plantImage.developmentPhase : 'N/A'}</text>
+              <text>Health Status: {plantImage.healthStatus !== undefined ? plantImage.healthStatus : 'N/A'}</text>
 
               <img src={plantImage.url} alt="Plant" />
             </li>
