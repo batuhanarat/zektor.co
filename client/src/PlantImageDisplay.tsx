@@ -3,37 +3,50 @@ import { TPlant } from './api/getPlants';
 import { getImage } from './api/getImage';
 import { TPlantImage } from './api/getImages';
 
+interface PlantImageDisplayProps {
+  plant: TPlant;
+  socket: WebSocket | null;
+}
 
-function PlantImageDisplay({ plant }: { plant: TPlant }) {
+function PlantImageDisplay({ plant, socket }: PlantImageDisplayProps) {
   const [currentImage, setCurrentImage] = useState<string>('');
 
   useEffect(() => {
-    // Fetch the URL for the last image ID
     const fetchImage = async () => {
       const lastImageId = plant.images[plant.images.length - 1];
-      console.log(plant._id);
-      console.log("plant images array: " + plant.images.length);
-      console.log(lastImageId);
-      console.log(lastImageId);
- //a
-      const image: TPlantImage = await getImage(lastImageId);
-      console.log(image.url);
-      setCurrentImage(image.url);
+      if (lastImageId) {
+        const image: TPlantImage = await getImage(lastImageId);
+        setCurrentImage(image.url);
+      }
     };
 
     fetchImage();
-  }, [plant,plant.images]);
+  }, [plant]);
+
+  useEffect(() => {
+    const handleNewImage = (event: MessageEvent) => {
+      const newImage = JSON.parse(event.data);
+      if (newImage.plantId === plant._id) {
+        setCurrentImage(newImage.url);
+      }
+    };
+
+    if (socket) {
+      socket.addEventListener('message', handleNewImage);
+    }
+
+    return () => {
+      if (socket) {
+        socket.removeEventListener('message', handleNewImage);
+      }
+    };
+  }, [socket, plant._id]);
 
   return (
     <div>
       {currentImage && (
         <>
-          <img
-            src={currentImage}
-            alt={`Image for ${plant.type}`}
-            width={70}
-            height={70}
-          />
+          <img src={currentImage} alt={`Image for ${plant.type}`} width={70} height={70} />
         </>
       )}
     </div>
