@@ -21,6 +21,7 @@ export async function createImageDataController(req: Request, res: Response, cli
     }
 
     const imageData = {
+      type: 'new_image',
       plantId: plantId, // Replace with actual plant ID if available
       url: `data:${file.mimetype};base64,${file.buffer.toString('base64')}`, // Convert to base64 data URL
     };

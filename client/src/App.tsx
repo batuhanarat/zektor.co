@@ -42,23 +42,61 @@ function App() {
       setSocket(ws);
 
       ws.onmessage = (event) => {
-        const newImage = JSON.parse(event.data);
-        setPlants((prevPlants) => {
-          const updatedPlants = prevPlants.map((plant) => {
-            if (plant._id === newImage.plantId) {
-              return {
-                ...plant,
-                images: [...plant.images, newImage.url],
-                developmentPhase: 99, // Set developmentPhase to 99 to indicate an update
-                healthStatus: 99, // Set developmentPhase to 99 to indicate an update
-              };
-            }
-            return plant;
-          });
-          localStorage.setItem('plants', JSON.stringify(updatedPlants));
-          return updatedPlants;
-        });
+        const message = JSON.parse(event.data);
+        switch (message.type) {
+          case 'new_image':
+            setPlants((prevPlants) => {
+              const updatedPlants = prevPlants.map((plant) => {
+                if (plant._id === message.plantId) {
+                  return {
+                    ...plant,
+                    images: [...plant.images, message.url],
+                    developmentPhase: 99, // Set developmentPhase to 99 to indicate an update
+                    healthStatus: 99, // Set healthStatus to 99 to indicate an update
+                  };
+                }
+                return plant;
+              });
+              localStorage.setItem('plants', JSON.stringify(updatedPlants));
+              return updatedPlants;
+            });
+            break;
+          case 'development_phase_update':
+            setPlants((prevPlants) => {
+              const updatedPlants = prevPlants.map((plant) => {
+                if (plant._id === message.plantId) {
+                  return {
+                    ...plant,
+                    developmentPhase: message.developmentPhase,
+                  };
+                }
+                return plant;
+              });
+              localStorage.setItem('plants', JSON.stringify(updatedPlants));
+              return updatedPlants;
+            });
+            break;
+          case 'health_status_update':
+            setPlants((prevPlants) => {
+              const updatedPlants = prevPlants.map((plant) => {
+                if (plant._id === message.plantId) {
+                  return {
+                    ...plant,
+                    healthStatus: message.healthStatus,
+                  };
+                }
+                return plant;
+              });
+              localStorage.setItem('plants', JSON.stringify(updatedPlants));
+              return updatedPlants;
+            });
+            break;
+          default:
+            console.error('Unknown message type:', message.type);
+        }
       };
+
+
 
       ws.onerror = (error) => {
         console.error('WebSocket error:', error);

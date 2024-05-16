@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import ImageData from "../models/ImageData";
 import Plant from "../models/Plant";
+import { WebSocket } from '../types/customWebSocket'; // Custom WebSocket import
 
-export async function createHealthModelOutputs(req: Request, res: Response) {
+
+export async function createHealthModelOutputs(req: Request, res: Response, clients: WebSocket[]) {
     const { predictions, imageIds, plantIds } = req.body;
 
     if (!predictions || !imageIds || predictions.length !== imageIds.length) {
@@ -12,7 +14,7 @@ export async function createHealthModelOutputs(req: Request, res: Response) {
     try {
         for (let i = 0; i < imageIds.length; i++) {
             const imageId = imageIds[i];
-            const plantId = plantIds[i]
+            const plantId = plantIds[i];
             const prediction = predictions[i];
 
             const image = await ImageData.findById(imageId);
@@ -31,6 +33,13 @@ export async function createHealthModelOutputs(req: Request, res: Response) {
             plant.healthStatus = prediction;
             await plant.save();
 
+            // Broadcast the health status update to all connected clients
+            const healthStatusUpdate = {
+                type: 'health_status_update', // Include the type field
+                plantId: plantId,
+                healthStatus: prediction,
+            };
+            clients.forEach((client) => client.send(JSON.stringify(healthStatusUpdate)));
         }
 
         res.status(200).json({ message: "Predictions updated successfully" });
@@ -39,9 +48,6 @@ export async function createHealthModelOutputs(req: Request, res: Response) {
             res.status(500).json({ message: "Failed to update predictions", error: error.message });
         } else {
             res.status(500).json({ message: "Failed to update predictions", error:"Unknown error occurred"   });
-
         }
     }
 }
-
-

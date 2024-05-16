@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import ImageData from "../models/ImageData";
 import Plant from "../models/Plant";
+import { WebSocket } from '../types/customWebSocket'; // Custom WebSocket import
 
-export async function createDevelopmentModelOutputs(req: Request, res: Response) {
+
+export async function createDevelopmentModelOutputs(req: Request, res: Response, clients: WebSocket[]) {
     const { predictions, imageIds, plantIds } = req.body;
 
     if (!predictions || !imageIds || predictions.length !== imageIds.length) {
@@ -30,6 +32,12 @@ export async function createDevelopmentModelOutputs(req: Request, res: Response)
 
             plant.developmentPhase = prediction;
             await plant.save();
+            const developmentPhaseUpdate = {
+                type: 'development_phase_update', // Include the type field
+                plantId: plantId,
+                developmentPhase: prediction,
+            };
+            clients.forEach((client) => client.send(JSON.stringify(developmentPhaseUpdate)));
 
         }
 
