@@ -34,13 +34,19 @@ export async function createHealthModelOutputs(req: Request, res: Response, clie
             await plant.save();
 
             // Broadcast the health status update to all connected clients
-            const healthStatusUpdate = {
+           /* const healthStatusUpdate = {
                 type: 'health_status_update', // Include the type field
                 plantId: plantId,
                 healthStatus: prediction,
             };
-            clients.forEach((client) => client.send(JSON.stringify(healthStatusUpdate)));
+            */
+           // clients.forEach((client) => client.send(JSON.stringify(healthStatusUpdate)));
         }
+        const healthStatusUpdate = {
+            type: 'health_status_update', // Include the type field
+        };
+        clients.forEach((client) => client.send(JSON.stringify(healthStatusUpdate)));
+
 
         res.status(200).json({ message: "Predictions updated successfully" });
     } catch (error) {

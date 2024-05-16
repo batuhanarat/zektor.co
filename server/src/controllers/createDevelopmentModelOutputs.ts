@@ -32,14 +32,20 @@ export async function createDevelopmentModelOutputs(req: Request, res: Response,
 
             plant.developmentPhase = prediction;
             await plant.save();
-            const developmentPhaseUpdate = {
+          /*  const developmentPhaseUpdate = {
                 type: 'development_phase_update', // Include the type field
                 plantId: plantId,
                 developmentPhase: prediction,
             };
-            clients.forEach((client) => client.send(JSON.stringify(developmentPhaseUpdate)));
+            */
+//            clients.forEach((client) => client.send(JSON.stringify(developmentPhaseUpdate)));
 
         }
+        const developmentPhaseUpdate = {
+            type: 'development_phase_update', // Include the type field
+        };
+         clients.forEach((client) => client.send(JSON.stringify(developmentPhaseUpdate)));
+
 
         res.status(200).json({ message: "Predictions updated successfully" });
     } catch (error) {
