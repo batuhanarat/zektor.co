@@ -8,6 +8,7 @@ const ImageDataSchema = new Schema({
     plantId: { type: Schema.Types.ObjectId, ref: 'Plant' },
     url: { type: String},
     developmentPhase: {type: Number, default: -1},
+    healthStatus: {type: Number, default: -1},
     date: { type: Date, default: Date.now }
 });
 

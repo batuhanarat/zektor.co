@@ -5,6 +5,7 @@ export type TPlantImage = {
     plantId: string,
     url: string,
     developmentPhase: number,
+    healthStatus: number,
     date: Date,
 };
 

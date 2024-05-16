@@ -6,6 +6,7 @@ export type TPlant = {
     type: string,
     order: number,
     developmentPhase: number,
+    healthStatus: number,
     images: string[],
 };
 

@@ -20,7 +20,9 @@ import { createSensorDataController } from './controllers/createSensorDataContro
 import { getSensorDataController } from './controllers/getSensorDataController';
 import { updateSensorDataController } from './controllers/updateSensorDataController';
 import { createImagesDataController } from './controllers/createImagesDataController';
-import { createModelOutputs } from './controllers/createModelOutputs';
+import { createDevelopmentModelOutputs } from './controllers/createDevelopmentModelOutputs';
+import { createHealthModelOutputs } from './controllers/createHealthModelOutputs';
+
 import { getImageController } from './controllers/getImageController';
 import { WebSocket } from './types/customWebSocket'; // Custom WebSocket import
 import { getAllImagesController } from './controllers/getAllImagesController';
@@ -64,7 +66,8 @@ app.get('/plantImageSync/:imageId', getImageController);
 app.post('/sensor', createSensorDataController);
 app.get('/sensor/:userId', getSensorDataController);
 app.get('/allImages', getAllImagesController);
-app.post('/developmentPhaseOutput', createModelOutputs);
+app.post('/developmentPhaseOutput', createDevelopmentModelOutputs);
+app.post('/healthStatusOutput', createHealthModelOutputs);
 
 app.get('/hello', (req: Request, res: Response) => {
   res.send('HELLO WORLD');

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import ImageData from "../models/ImageData";
 import Plant from "../models/Plant";
 
-export async function createModelOutputs(req: Request, res: Response) {
+export async function createHealthModelOutputs(req: Request, res: Response) {
     const { predictions, imageIds, plantIds } = req.body;
 
     if (!predictions || !imageIds || predictions.length !== imageIds.length) {
@@ -20,7 +20,7 @@ export async function createModelOutputs(req: Request, res: Response) {
                 return res.status(404).json({ message: `Image with ID ${imageId} not found` });
             }
 
-            image.developmentPhase = prediction;
+            image.healthStatus = prediction;
             await image.save();
 
             const plant = await Plant.findById(plantId);
@@ -28,7 +28,7 @@ export async function createModelOutputs(req: Request, res: Response) {
                 return res.status(404).json({ message: `Plant with ID ${plantId} not found` });
             }
 
-            plant.developmentPhase = prediction;
+            plant.healthStatus = prediction;
             await plant.save();
 
         }

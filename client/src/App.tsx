@@ -50,6 +50,7 @@ function App() {
                 ...plant,
                 images: [...plant.images, newImage.url],
                 developmentPhase: 99, // Set developmentPhase to 99 to indicate an update
+                healthStatus: 99, // Set developmentPhase to 99 to indicate an update
               };
             }
             return plant;
@@ -142,8 +143,10 @@ function App() {
               <Link to={`plants/${plant._id}`}>
                 <div>
                   <PlantImageDisplay plant={plant} socket={socket} />
-                  <p style={{ margin: '0', fontSize: '14px' }}>{`#${plant.order}`}</p>
-                  <p style={{ margin: '0', fontSize: '14px' }}>{plant.developmentPhase === 99 ? '...' : `#${plant.developmentPhase}`}</p>
+                  <p style={{ margin: '0', fontSize: '10px' }}>{`#${plant.order}`}</p>
+                  <p style={{ margin: '0', fontSize: '10px' }}>{plant.developmentPhase === 99 ? '...' : `Phase: ${plant.developmentPhase}`}</p>
+                  <p style={{ margin: '0', fontSize: '10px' }}>{plant.healthStatus === 99 ? '...' : `Health: ${plant.healthStatus}`}</p>
+
                 </div>
               </Link>
             </li>

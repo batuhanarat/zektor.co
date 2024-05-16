@@ -9,6 +9,7 @@ const PlantSchema = new Schema({
     type: { type: String },
     order: {type: Number},
     developmentPhase: { type: Number, required: false },
+    healthStatus: { type: Number, required: false },
     images: [{ type: ObjectId, ref: 'ImageData' }]
 });
 
