@@ -76,10 +76,10 @@ function App() {
               return updatedPlants;
             });
             */
-            const userPlants = await getPlants(userID);
-            setPlants(userPlants);
-            localStorage.setItem('userId', userID);
-            localStorage.setItem('plants', JSON.stringify(userPlants));
+            //const userPlants = await getPlants(userID);
+            //setPlants(userPlants);
+            //localStorage.setItem('userId', userID);
+            //localStorage.setItem('plants', JSON.stringify(userPlants));
 
             break;
           case 'health_status_update':
