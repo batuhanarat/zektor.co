@@ -1,70 +1,241 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
 }
 
 .App {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: center; /* Center content horizontally */
   position: relative;
   height: 100vh;
   width: 100%;
 }
 
-.top-section{
+.top-section {
   width: 100%;
-  padding: 1rem;
   display: flex;
-  justify-content: space-between; /* Align items horizontally */
-  align-items: center; /* Align items vertically */
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.user-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-section .user {
+  display: flex;
+  align-items: center;
 }
 
 .top-section button {
   font-size: 15px;
-  margin: 10px;
+  margin: 5px;
 }
-.loginMessage{
-margin :20px;
+
+.loginMessage {
+  margin: 10px;
 }
 
 .middle-section {
-  flex-grow: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
-
-}
-.bottom-section {
+  align-items: flex-start;
+  padding: 0.5rem;
   flex-grow: 1;
-  justify-content: center;
+  width: 100%;
+}
+
+.sensor-and-table {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: 800px;
+  height: 100%;
 }
-.bottom-section h1,
-.bottom-section h2 {
-  display: block;
+
+.sensor-values {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
 }
+
+.sensor-value {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  padding: 0.5rem;
+}
+
+.plant-details {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: center;
+  color: black;
+}
+
+td {
+  text-align: center;
+  color: white;
+}
+
+.bottom-section {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  margin-top: 40px;
+}
+
 .plants {
   display: grid;
-  width: 800px;
-  margin: 0 auto;
-  grid-gap: 2px;
-  grid-template-columns: repeat(5,1fr);
+  width: 100%;
+  max-width: 800px; /* Limit the width of the grid */
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
+
 .plants li {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width : 90%;
-  height: 250px;
-  background : white;
+  height: 300px;
+  background: white;
   border: 1px solid white;
   border-radius: 20px;
-  color:black
+  color: black;
 }
 
+.plants li.healthy {
+  background-color: #14452F;
+}
 
+.plants li.unhealthy {
+  background-color: #8d021f;
+}
+.plant.yellow {
+  background-color: #fada5f ;
+}
 
+.plant-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.plant-text {
+  color: #fffff0;
+  margin: 2px;
+  font-size: 15px;
+}
+
+.order-info {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: white;
+  color: black;
+  padding: 5px 5px;
+  font-size: 15px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  background: white;
+  padding: 10px; /* Equal padding all around */
+  border-radius: 10px;
+}

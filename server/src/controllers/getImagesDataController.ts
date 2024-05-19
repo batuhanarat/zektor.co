@@ -12,7 +12,8 @@ export async function getImagesDataController(req: Request, res: Response) {
             res.json(plantImages.map(img => ({
                 url: img.url,
                 date: img.date,
-                developmentPhase : img.developmentPhase
+                developmentPhase : img.developmentPhase,
+                healthStatus: img.healthStatus,
             })));
 
                 } catch (error) {

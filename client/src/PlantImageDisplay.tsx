@@ -46,7 +46,7 @@ function PlantImageDisplay({ plant, socket }: PlantImageDisplayProps) {
     <div>
       {currentImage && (
         <>
-          <img src={currentImage} alt={`Image for ${plant.type}`} width={120} height={110} />
+          <img src={currentImage} alt={`Image for ${plant.type}`} width={140} height={140} />
         </>
       )}
     </div>
