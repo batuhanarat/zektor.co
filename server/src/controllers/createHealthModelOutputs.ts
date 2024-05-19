@@ -22,6 +22,7 @@ export async function createHealthModelOutputs(req: Request, res: Response, clie
                 return res.status(404).json({ message: `Image with ID ${imageId} not found` });
             }
 
+
             image.healthStatus = prediction;
             await image.save();
 
