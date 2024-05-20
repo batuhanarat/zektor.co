@@ -43,7 +43,7 @@ function App() {
 
       // Establish WebSocket connection
       //const ws = new WebSocket('ws://localhost:5004');
-      const ws = new WebSocket('ws://http://54.208.55.232:5004');
+      const ws = new WebSocket('ws://54.208.55.232:5004');
 
 
       setSocket(ws);
@@ -219,7 +219,7 @@ function App() {
                 <Link to={`plants/${plant._id}`}>
                   <div>
                     <PlantImageDisplay plant={plant} socket={socket} />
-                    <p style={{ margin: '0', fontSize: '20px' }}>{plant.developmentPhase === 99 ? '...' : `Phase: ${getDevStatus(plant.developmentPhase)}`}</p>
+                    <p style={{ margin: '0', fontSize: '20px' }}>{plant.developmentPhase === 99 ? '...' : `Phase: ${(plant.developmentPhase)}`}</p>
                     <p style={{ margin: '0', fontSize: '20px' }}>{plant.healthStatus === 99 ? '...' : ` ${getHealthStatus(plant.healthStatus)}`}</p>
                   </div>
                 </Link>
