@@ -176,7 +176,7 @@ td {
 .plants {
   display: grid;
   width: 100%;
-  max-width: 800px; /* Limit the width of the grid */
+  max-width: 1000px; /* Limit the width of the grid */
   grid-gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
