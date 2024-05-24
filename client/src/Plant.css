@@ -1,7 +1,4 @@
-:root {
-  margin: 0 auto;
-  padding: 0;
-}
+
 
 .Plant {
   display: flex;
@@ -14,6 +11,19 @@
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.plantPage {
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+
+}
+.plantContainer {
+  flex: 6;
+  padding: 20px; /* Add padding if necessary */
+
 }
 
 .Plant > div:first-child {

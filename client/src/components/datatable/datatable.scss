@@ -1,0 +1,46 @@
+.datatable {
+    height: 900px;
+    padding: 20px;
+
+    .cellWithImg {
+      display: flex;
+      align-items: center;
+
+      .cellImg {
+        width: 32px;
+        height: 32px;
+        border-radius: 50;
+      }
+    }
+
+    .cellWithStatus {
+      padding: 5px;
+      border-radius: 5px;
+
+      &.healthy {
+        background-color: rgba(0, 128, 0, 0.05);
+        color: green;
+      }
+
+      &.unhealthy {
+        background-color: rgba(255, 0, 0, 0.05);
+        color: crimson;
+      }
+    }
+
+    .cellAction {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .viewButton {
+        display: flex;
+        align-items: center;
+        padding: 2px 5px;
+        border-radius: 5px;
+        color: darkblue;
+        border: 3px dotted rgba(0, 0, 139, 0.442);
+        cursor: pointer;
+      }
+    }
+  }

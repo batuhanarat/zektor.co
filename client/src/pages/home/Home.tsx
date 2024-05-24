@@ -16,8 +16,9 @@ export const Home = () => {
         <Widget type = "sensor"/>
         <Widget type = "developmentInfo"/>
         </div>
+        <text className="header">Plants</text >
         <div className="plantsSection">
-            <Plant/>
+          <Plant/>
         </div>
       </div>
     </div>

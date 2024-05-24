@@ -1,19 +1,22 @@
+// In Featured.js or Featured.tsx
+import React from 'react';
 import "./featured.scss"
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css"
 
- const Featured = () => {
+interface FeaturedProps{
+    percentage: number;
+}
+const Featured :React.FC<FeaturedProps> = ({ percentage }) => {
   return (
     <div className="featured">
      <div className="content">
         <div className="featuredChart">
-            <CircularProgressbar value = {50} text={"50%"} strokeWidth={5}/>
+            <CircularProgressbar value={percentage} text={`${percentage.toFixed(2)}%`} strokeWidth={5}/>
         </div>
-
-
      </div>
     </div>
-    )
+  )
 }
 
 export default Featured;

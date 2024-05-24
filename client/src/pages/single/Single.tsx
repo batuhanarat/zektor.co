@@ -1,8 +1,22 @@
-import "./single.scss"
+import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/navbar/Navbar";
+import "./single.scss";
+import Chart from "../../components/chart/Chart";
 
- const Single = () => {
+export const Single = () => {
+  const userId = "664b678ab7b5c9ece4c65be4";
   return (
-    <div> Single</div>
-  )
-}
+    <div className="sensor">
+      <Sidebar />
+      <div className="sensorContainer">
+        <Navbar />
+        <div className="header">Sensor Data</div>
+        <div className="sensorSection">
+          <Chart userId={userId}/>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default Single;

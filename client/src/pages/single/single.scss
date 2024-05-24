@@ -1,0 +1,24 @@
+.sensor {
+    display: flex; /* Ensure flex container */
+    height: 100vh;
+    width: 100%;
+
+    .sensorContainer {
+      flex: 6;
+      display: flex;
+      flex-direction: column; /* Ensure column direction */
+      padding: 20px; /* Add padding if necessary */
+    }
+
+    .header {
+      font-size: 30px;
+      font-weight: bold;
+      padding: 10px 50px;
+    }
+
+    .sensorSection {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+  }

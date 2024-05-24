@@ -1,10 +1,16 @@
+import Datatable from "../../components/datatable/Datatable";
+import Navbar from "../../components/navbar/Navbar";
+import Sidebar from "../../components/sidebar/Sidebar";
 import "./list.scss"
 
 export const List = () => {
   return (
-    <div className='home'>
-
-      <h1 className="title"> Zektor</h1>
+    <div className='list'>
+      <Sidebar/>
+      <div className="listContainer">
+        <Navbar/>
+        <Datatable/>
+      </div>
       </div>
   )
 }

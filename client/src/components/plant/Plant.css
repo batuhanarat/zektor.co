@@ -1,0 +1,83 @@
+.plants {
+    display: grid;
+    width: 100%;
+    max-width: 800px; /* Limit the width of the grid */
+    grid-gap: 40px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+  .middle-section {
+    display: flex;
+    align-items:center;
+    padding: 1rem;
+    flex-grow: 1;
+    width: 100%;
+  }
+
+  .plants li {
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 200px; /* Set a specific width for the items */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .plants li.healthy {
+    background-color: #14452F;
+  }
+
+  .plants li.unhealthy {
+    background-color: #8d021f;
+  }
+  .plant.yellow {
+    background-color: #fada5f ;
+  }
+  .plants .image-container {
+    display:flex;
+    justify-content: center;
+    margin-top: 4px;
+    background: white;
+    padding: 10px; /* Equal padding all around */
+    border-radius: 10px;
+  }
+  .plants text {
+    display:flex;
+    justify-content: center;
+    color: #fffff0;
+    margin: 2px;
+    font-size: 15px;
+  }
+
+  .plant-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .plant-text {
+    color: #fffff0;
+    margin: 2px;
+    font-size: 15px;
+  }
+
+  .order-info {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: white;
+    color: black;
+    padding: 5px 5px;
+    font-size: 15px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+

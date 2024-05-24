@@ -5,6 +5,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Plant from './Plant.tsx'
 import './index.css';
 import Login from './pages/login/Login.tsx'
+import List from './pages/list/List.tsx'
+import Single from './pages/single/Single.tsx'
 
 
 const router = createBrowserRouter([
@@ -12,6 +14,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
 
+  },
+  {
+    path: "plants/",
+    element: <List/>,
   },
   {
     path: "plants/:plantId",
@@ -22,7 +28,11 @@ const router = createBrowserRouter([
       path: "/login",
       element: <Login/>
 
-  }
+  },
+  {
+    path: "/sensorGraph",
+    element : <Single/>
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

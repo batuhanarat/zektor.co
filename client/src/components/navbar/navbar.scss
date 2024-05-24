@@ -1,10 +1,10 @@
 .navbar{
-    height: 90px;
+    height: 50px;
     border-bottom: 0.5px solid rgb(230,227,227);
     display: flex;
     align-items: center;
-    font-size: 34px;
-    color: #555;
+    font-size: 14px;
+        color: #555;
 
     .wrapper{
         width: 100%;
@@ -17,7 +17,7 @@
             display: flex;
             align-items: center;
             border: 0.5px solid lightgray;
-            padding: 5px;
+            padding: 3px;
 
             input{
                 border:none;
@@ -25,14 +25,13 @@
                 background: transparent;
 
                 &::placeholder{
-                    font-size: 25px;
+                    font-size: 12px;
                 }
             }
         }
         .items{
             display: flex;
             align-items: center;
-            padding: 5px;
 
             .item{
                 display:flex;
@@ -43,20 +42,19 @@
 
 
                 .icon{
-                    font-size: 30px;
+                    font-size: 20px;
                 }
 
                 .counter{
-                    width: 30px;
-                    height: 30px;
+                    width: 15px;
+                    height: 15px;
                     background-color: red;
                     border-radius: 50%;
                     color: white;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 15px;
-                    font-weight: bold;
+                    font-size: 10px;                    font-weight: bold;
                     position: absolute;
                     top: -5px;
                     right: -5px;

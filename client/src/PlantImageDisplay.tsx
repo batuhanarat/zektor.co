@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { TPlant } from './api/getPlants';
 import { getImage } from './api/getImage';
 import { TPlantImage } from './api/getImages';
+import './PlantImageDisplay.css';
 
 interface PlantImageDisplayProps {
   plant: TPlant;
@@ -46,7 +47,7 @@ function PlantImageDisplay({ plant, socket }: PlantImageDisplayProps) {
     <div>
       {currentImage && (
         <>
-          <img src={currentImage} alt={`Image for ${plant.type}`} width={140} height={140} />
+          <img src={currentImage} alt={`Image for ${plant.type}`} />
         </>
       )}
     </div>

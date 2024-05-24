@@ -4,6 +4,8 @@ import './Plant.css';
 import { TPlant } from './api/getPlants';
 import { getPlant } from './api/getPlant';
 import { TPlantImage, getImages } from './api/getImages';
+import Sidebar from './components/sidebar/Sidebar';
+import Navbar from './components/navbar/Navbar';
 
 function Plant() {
   const [plant, setPlant] = useState<TPlant>();
@@ -51,16 +53,20 @@ function Plant() {
   }, [plantId]);
 
   return (
-    <div className="Plant">
-      <div>
-        <div style={{ textAlign: 'center' }}></div>
+
+    <div className="plantPage">
+    <Sidebar />
+          <div className='plantContainer'>
+      <Navbar/>
+
+        <div style={{ textAlign: 'center' }}>
         <h2>Development Phase: {getDevStatus(plant?.developmentPhase)}</h2>
         <h2>Health Status: {getHealthStatus(plant?.healthStatus)}</h2>
         <h2>
           Plant Type: {plant?.type}
           <h2></h2> Order: {plant?.order}
         </h2>
-      </div>
+        </div>
       <div className="plantImages">
         <ul>
           {allImages.map((plantImage) => (
@@ -82,6 +88,8 @@ function Plant() {
             </li>
           ))}
         </ul>
+        </div>
+
       </div>
     </div>
   );

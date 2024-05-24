@@ -5,46 +5,60 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import SensorsOutlinedIcon from '@mui/icons-material/SensorsOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import {Link} from "react-router-dom";
 
 const Sidebar = () => {
  return (
    <div className='sidebar'>
     <div className='top'>
-    <span className='logo'> ZEKTOR </span>
+        <Link to = "/" style={{textDecoration: "none"}}>
+        <span className='logo'> ZEKTOR </span>
+        </Link>
     </div>
     <hr />
     <div className='center'>
         <ul>
             <p className="title">MAIN</p>
+            <Link to = "/" style={{textDecoration: "none"}}>
+
             <li>
             <DashboardIcon className='icon'/>
                 <span>Dashboard </span>
             </li>
+            </Link>
+
             <p className="title">LISTS</p>
-            <li>
-                <YardOutlinedIcon className='icon'/>
-                <span> Plant List </span>
-            </li>
+            <Link to = "/plants" style={{textDecoration: "none"}}>
+                <li>
+                    <YardOutlinedIcon className='icon'/>
+                    <span> Plant List </span>
+                </li>
+             </Link>
             <p className="title">STATS</p>
+            <Link to = "/sensorGraph" style={{textDecoration: "none"}}>
             <li>
                 <SensorsOutlinedIcon className='icon'/>
                 <span> Sensor Stats  </span>
             </li>
+            </Link>
             <p className="title">USER</p>
+            <Link to = "/user" style={{textDecoration: "none"}}>
             <li>
                 <AccountCircleOutlinedIcon className='icon'/>
                 <span> Profile </span>
             </li>
+            </Link>
+            <Link to = "/logout" style={{textDecoration: "none"}}>
+
             <li>
                 <LogoutOutlinedIcon className='icon'/>
                 <span> Logout </span>
             </li>
+            </Link>
+
         </ul>
     </div>
-    <div className='bottom'>
-        <div className='colorOption'> </div>
-        <div className='colorOption'> </div>
-    </div>
+
 
    </div>
  )

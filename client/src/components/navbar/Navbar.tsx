@@ -26,9 +26,7 @@
                 <div className="counter">1</div>
               </div>
 
-              <div className="item">
-              <DarkModeOutlinedIcon className='icon'/>
-              </div>
+
 
               <div className="item">
               <AccountCircleOutlinedIcon className='icon'/>
