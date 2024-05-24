@@ -33,7 +33,9 @@ const Plant = () => {
       localStorage.setItem('plants', JSON.stringify(userPlants));
 
       // Establish WebSocket connection
-      const ws = new WebSocket('ws://localhost:5004');
+      //const ws = new WebSocket('ws://localhost:5004');
+      const ws = new WebSocket('ws://54.208.55.232:5004');
+
 
       setSocket(ws);
 
