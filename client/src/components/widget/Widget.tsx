@@ -127,12 +127,7 @@ const Widget = ({ type }: WidgetProps) => {
                         <p>Phase 3: Heading</p>
                         <p>Phase 4: Harvest</p>
                     </div>
-                    <div className="phaseInfo">
-                        <p>52 Days to harvest </p>
-                        <p>45 Days harvest</p>
-                        <p>20 Days harvest</p>
-                        <p>- Days harvest</p>
-                    </div>
+
 
                     </div>
 
@@ -164,7 +159,7 @@ const Widget = ({ type }: WidgetProps) => {
 <div className="right">
     <div className="percentage positive">
         <KeyboardArrowUpOutlinedIcon />
-        20%
+
     </div>
     {type === "plantDevelopment" && <div className="chartExp">{data?.chartMessage}</div>}
     {data!.icon}

@@ -15,7 +15,7 @@ const Plant = () => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
   useEffect(() => {
-    setUserId("664b678ab7b5c9ece4c65be4");
+    setUserId("66468419b1c6da6f5f91dafd");
     if (userId) {
       handleGetUser(userId);
     }

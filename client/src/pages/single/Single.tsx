@@ -4,7 +4,7 @@ import "./single.scss";
 import Chart from "../../components/chart/Chart";
 
 export const Single = () => {
-  const userId = "664b678ab7b5c9ece4c65be4";
+  const userId = "66468419b1c6da6f5f91dafd";
   return (
     <div className="sensor">
       <Sidebar />

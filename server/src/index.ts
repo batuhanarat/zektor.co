@@ -68,10 +68,10 @@ app.get('/sensor/:userId', getSensorDataController);
 app.get('/allImages', getAllImagesController);
 app.post('/developmentPhaseOutput', (req: Request, res: Response) => {
     createDevelopmentModelOutputs(req, res, clients);
-  });
+});
   app.post('/healthStatusOutput', (req: Request, res: Response) => {
     createHealthModelOutputs(req, res, clients);
-  });
+});
 
 
 app.get('/hello', (req: Request, res: Response) => {
