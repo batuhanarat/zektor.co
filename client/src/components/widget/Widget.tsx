@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import "./widget.scss"
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import YardOutlinedIcon from '@mui/icons-material/YardOutlined';
@@ -26,6 +26,9 @@ const Widget = ({ type }: WidgetProps) => {
     const [userId, setUserId] = useState(() => localStorage.getItem('userId') || '');
 
     useEffect(() => {
+        if(false) {
+            setUserId("3213");
+        }
         if (type === "sensor" && userId) {
             const fetchSensorData = async () => {
                 try {

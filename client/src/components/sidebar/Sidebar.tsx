@@ -1,7 +1,6 @@
 import  './sidebar.scss'
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import YardOutlinedIcon from '@mui/icons-material/YardOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import SensorsOutlinedIcon from '@mui/icons-material/SensorsOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';

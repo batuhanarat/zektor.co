@@ -140,6 +140,7 @@ function App() {
     return status === 0 ? 'Unhealthy' : 'Healthy';
   };
 
+  /*
   const getDevelopmentPhaseWithHarvestEst = (stage: number) => {
     switch (stage) {
       case 1:
@@ -155,6 +156,7 @@ function App() {
     }
   };
 
+  */
   const getDevStatus = (stage: number): string => {
     switch (stage) {
       case 1:

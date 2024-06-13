@@ -1,7 +1,8 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import Widget from "../../components/widget/Widget";
 import Plant from "../../components/plant/Plant";
+import Widget from "../../components/widget/Widget";
+
 import "./home.scss"
 
 export const Home = () => {

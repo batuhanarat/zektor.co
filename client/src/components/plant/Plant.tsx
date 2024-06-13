@@ -85,20 +85,7 @@ const Plant = () => {
       setPlants([]);
     }
   }
-  const getDevelopmentPhaseWithHarvestEst = (stage: number) => {
-    switch (stage) {
-      case 1:
-        return { stage: 'Cotyledon', daysToHarvest: 52 };
-      case 2:
-        return { stage: 'Rosetta', daysToHarvest: 45 };
-      case 3:
-        return { stage: 'Heading', daysToHarvest: 20 };
-      case 4:
-        return { stage: 'Harvest', daysToHarvest: '-' };
-      default:
-        return { stage: 'Unknown', daysToHarvest: '-' };
-    }
-  };
+
   const getHealthStatus = (status: number) => {
     return status === 0 ? 'Unhealthy' : 'Healthy';
   };

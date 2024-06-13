@@ -2,7 +2,6 @@
  import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
  import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
  import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
- import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
  import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
   const Navbar = () => {

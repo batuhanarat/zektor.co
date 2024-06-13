@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./datatable.scss";
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { TPlant, getPlants } from '../../api/getPlants';
+import {  getPlants } from '../../api/getPlants';
 import { Link } from 'react-router-dom';
 
 const columns: GridColDef[] = [
@@ -43,6 +43,7 @@ type RowData = {
 
 const getHealthStatus = (status: number): string => {
   return status === 0 ? 'Unhealthy' : 'Healthy';
+
 };
 
 const getDevStatus = (stage: number): string => {
