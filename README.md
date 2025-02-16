@@ -24,7 +24,7 @@ This project was developed by Batuhan Arat and Volkan Işık. It started as a CO
 
 ### Demo Day
 <div align="center">
-  <img src="resources/demogünü.JPG" alt="Demo Day"/>
+  <img src="resources/demoday.JPG" alt="Demo Day"/>
   <p>A picture from Demo Day</p>
 </div>
 
