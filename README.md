@@ -12,6 +12,12 @@ This project was developed by Batuhan Arat and Volkan Işık. It started as a CO
 
 ## Project Overview
 
+### UI
+<div align="center">
+  <img src="resources/ui-image.JPG" alt="Example UI"/>
+</div>
+
+
 ### Project Poster
 <div align="center">
   <img src="resources/Poster.JPG" alt="Project Poster"/>
