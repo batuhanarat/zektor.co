@@ -14,12 +14,12 @@ This project was developed by Batuhan Arat and Volkan Işık. It started as a CO
 
 ### Project Poster
 <div align="center">
-  <img src="resources/Poster.png" alt="Project Poster"/>
+  <img src="resources/Poster.JPG" alt="Project Poster"/>
 </div>
 
 ### Project Flyer
 <div align="center">
-  <img src="resources/Flyer.png" alt="Project Flyer"/>
+  <img src="resources/Flyer.JPG" alt="Project Flyer"/>
 </div>
 
 ### Demo Day
