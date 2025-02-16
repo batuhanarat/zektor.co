@@ -10,6 +10,8 @@ import PlantImageDisplay from './PlantImageDisplay';
 import temperatureIcon from './assets/images/temp.png';
 import humidityIcon from './assets/images/hum.png';
 import PlantDetails from './PlantDetails';
+import { API_URL } from "./config";
+
 
 function App() {
   const [userId, setUserId] = useState(() => localStorage.getItem('userId') || '');
@@ -43,8 +45,7 @@ function App() {
 
       // Establish WebSocket connection
       //const ws = new WebSocket('ws://localhost:5004');
-      const ws = new WebSocket('ws://54.208.55.232:5004');
-
+      const ws = new WebSocket('ws://' + API_URL);
 
       setSocket(ws);
 
